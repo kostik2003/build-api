@@ -16,7 +16,9 @@ async function bootstrap() {
 
     try {
         await app.listen(DB_PORT, () => {
-            console.log(`Server started on port ${DB_PORT} `);
+            console.log(
+                `Server started on port ${DB_PORT}, http://localhost:3000/api`,
+            );
         });
     } catch (e) {
         console.error('server not started');

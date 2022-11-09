@@ -9,12 +9,12 @@ const prisma = new PrismaClient();
 export class ProductsController {
     constructor(readonly productsService: ProductsService) {}
 
-    @Get() // test request for postgres
-    async getHello() {
-        let posts;
-        posts = await prisma.post.findMany();
-        return posts;
-    }
+    // @Get() // test request for postgres
+    // async getHello() {
+    //     let posts;
+    //     posts = await prisma.post.findMany();
+    //     return posts;
+    // }
 
     @Get() //test request for mongo
     getAll(): Promise<Product[]> {

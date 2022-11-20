@@ -1,9 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
-import { Product } from 'schemas/products.schema';
-import { ProductsService } from './products.service';
+import { Controller, Get } from '@nestjs/common';
 
-const prisma = new PrismaClient();
+import { ProductsService } from './products.service';
+import { prisma } from 'prisma/prisma';
 
 @Controller('products')
 export class ProductsController {
@@ -16,8 +14,8 @@ export class ProductsController {
         return posts;
     }
 
-    @Get() //test request for mongo
-    getAll(): Promise<Product[]> {
-        return this.productsService.getAll();
-    }
+    // @Get() //test request for mongo
+    // getAll(): Promise<Product[]> {
+    //     return this.productsService.getAll();
+    // }
 }

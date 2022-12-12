@@ -27,7 +27,7 @@ export class AuthService {
             throw new HttpException('user already exist', HttpStatus.BAD_REQUEST);
         }
     }
-    //что то странное, юзер не возвращается
+
     async getAuthUser(email: string, plainTextPassword: string) {
         try {
             const user = await this.userService.getUniqueUser({ email });
@@ -47,8 +47,8 @@ export class AuthService {
     }
 
     async getJwtToken(user: any) {
-        const payload = { email: user.email, sub: user.id };
-        const token = this.jwtService.sign(payload, { secret: process.env.TOKEN_SECRET });
+        const payload = { email: user.email, sub: user.id, name: user.name };
+        const token = { access_token: this.jwtService.sign(payload, { secret: process.env.TOKEN_SECRET }) };
         return token;
     }
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
-
 @Injectable()
 export class UserService {
     constructor(private prisma: PrismaService) {}
@@ -14,7 +13,13 @@ export class UserService {
     }
 
     async getUniqueUser(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User> {
+        // console.log(userWhereUniqueInput);
         return this.prisma.user.findUnique({
+            where: userWhereUniqueInput,
+        });
+    }
+    async delete(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {
+        return this.prisma.user.delete({
             where: userWhereUniqueInput,
         });
     }

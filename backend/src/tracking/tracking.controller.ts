@@ -1,13 +1,12 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Request, UseGuards } from '@nestjs/common';
 import { Body, Get, Post, Param } from '@nestjs/common';
-import { TrackingService } from './tracking.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('tracking')
 export class TrackingController {
-    constructor(private readonly trackingService: TrackingService) {}
-
-    @Get('user')
-    async getAllUser() {
-        return this.trackingService;
+    @UseGuards(JwtAuthGuard)
+    @Get()
+    getProfile(@Request() req) {
+        return req.user;
     }
 }

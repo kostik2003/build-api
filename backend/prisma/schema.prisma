@@ -10,11 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
-  posts Post[]
+  id        Int     @default(autoincrement()) @id
+  email     String  @unique
+  name      String 
+  password  String
+  role      Role  @default(USER)
 }
 
 model Post {
@@ -22,6 +28,12 @@ model Post {
   title     String
   content   String?
   published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
   authorId  Int?
+}
+
+model Time {
+  id                  Int      @default(autoincrement()) @id
+  time_now            DateTime
+  time_working        Int
+  time_work_more      Int
 }

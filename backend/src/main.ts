@@ -2,12 +2,14 @@ require('dotenv').config();
 import { NestFactory } from '@nestjs/core';
 import { PrismaService } from '../prisma/prisma.service';
 import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
 
 const DB_PORT = process.env.DB_PORT || 3001;
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    app.enableCors();
+    app.enableCors({ credentials: true });
+    app.use(cookieParser());
     const prismaService = app.get(PrismaService);
     await prismaService.enableShutdownHooks(app);
 

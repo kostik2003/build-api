@@ -6,25 +6,18 @@ import {
   ADMIN_ROUTE,
   REGISTRATION_ROUTE,
   TRACKING_ROUTER,
+  AUTH_ROUTE,
 } from "./utils/consts";
-import { Component } from "react";
+import RegisterPage from "./pages/registerPage";
 
 export const publicRoutes = [
   {
-    path: LOGIN_ROUTE,
-    Component: AuthPage,
-  },
-  {
     path: REGISTRATION_ROUTE,
+    Component: RegisterPage,
+  },
+  {
+    path: AUTH_ROUTE,
     Component: AuthPage,
-  },
-  {
-    path: ADMIN_ROUTE, //wqer
-    Component: AdminPage,
-  },
-  {
-    path: TRACKING_ROUTER,
-    Component: trackingPage,
   },
 ];
 

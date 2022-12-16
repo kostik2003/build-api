@@ -1,4 +1,4 @@
-export const REGISTRATION_ROUTE = "/registration";
+export const REGISTRATION_ROUTE = "/authentication/registration";
 export const TRACKING_ROUTER = "/tracking";
-export const LOGIN_ROUTE = "/login";
+export const AUTH_ROUTE = "/authentication";
 export const ADMIN_ROUTE = "/admin";

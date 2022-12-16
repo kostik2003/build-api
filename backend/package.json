@@ -36,6 +36,7 @@
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
+        "js-cookie": "^3.0.1",
         "mongoose": "^6.7.1",
         "mysql2": "^2.3.3",
         "nextjs-cors": "^2.1.2",

@@ -21,9 +21,7 @@ export default class Store {
   async login(email, password) {
     try {
       const res = await AuthService.login(email, password);
-      console.log(res); // приходит объект
-      // const locStor = localStorage.setItem("token", res.data.access_token);
-      // console.log(locStor); //undef
+      // console.log(res); // приходит объект
       this.setAuth(true);
       this.setUser(res.data.user);
     } catch (e) {
@@ -34,7 +32,6 @@ export default class Store {
   async registration(email, password, name) {
     try {
       const res = await AuthService.registration(email, password, name);
-      // console.log(res);
       localStorage.setItem("token", res.data.access_token);
       this.setAuth(true);
       this.setUser(res.data.user);
@@ -59,9 +56,7 @@ export default class Store {
       const res = await axios.get(`${API_URL}/authentication`, {
         credentials: true,
       });
-      // console.log(res);
       const locStor = localStorage.setItem("token", res.data.access_token);
-      // console.log(locStor);
       this.setAuth(true);
       this.setUser(res.data.user);
     } catch (e) {

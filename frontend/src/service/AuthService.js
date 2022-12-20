@@ -1,5 +1,4 @@
 import $api from "../http";
-import GetCookie from "../hooks/getCookie";
 import RemoveCookie from "../hooks/removeCookie";
 import SetCookie from "../hooks/setCookie";
 
@@ -9,9 +8,9 @@ export default class AuthService {
       email,
       password,
     });
+    // console.log("123" + response);
     RemoveCookie("usrin");
     SetCookie("usrin", JSON.stringify(response));
-    console.log("11" + response);
     return response;
   }
 

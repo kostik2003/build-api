@@ -1,7 +1,8 @@
+import { observer } from "mobx-react-lite";
 import React, { useContext, useState } from "react";
 import { Context } from "..";
 
-export default function RegisterPage() {
+export default observer(function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -33,4 +34,4 @@ export default function RegisterPage() {
       </button>
     </div>
   );
-}
+});

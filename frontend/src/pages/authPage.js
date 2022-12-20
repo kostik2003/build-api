@@ -1,18 +1,30 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Context } from "..";
+
 import { observer } from "mobx-react-lite";
+import AuthService from "../service/AuthService";
+import { REGISTRATION_ROUTE, TRACKING_ROUTER } from "../utils/consts";
 
 const AuthPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const { store } = useContext(Context);
 
+  const handleLogin = (e) => {
+    e.preventDefault();
+    store.login(email, password, navigate).then(() => {
+      navigate(TRACKING_ROUTER);
+    });
+  };
+
   return (
-    <Form>
+    <form onSubmit={handleLogin}>
       <input
         onChange={(e) => setEmail(e.target.value)}
         value={email}
@@ -29,15 +41,12 @@ const AuthPage = () => {
       />
       <br></br>
       <br></br>
-      <Link to="/tracking">
-        {/* хуёво работает */}
-        <Button
-          variant="outline-dark"
-          onClick={() => store.login(email, password)}
-        >
-          Войти
-        </Button>
-      </Link>
+
+      {/* х**во работает */}
+
+      <Button variant="outline-dark" type="submit">
+        Войти
+      </Button>
 
       <br></br>
       <br></br>
@@ -50,7 +59,7 @@ const AuthPage = () => {
       <br></br>
       <br></br>
       <h5>Maxim.Ivanchik@mail.ru</h5>
-    </Form>
+    </form>
   );
 };
 export default observer(AuthPage);

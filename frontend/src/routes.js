@@ -1,8 +1,8 @@
 import AuthPage from "./pages/authPage";
 import AdminPage from "./pages/adminPage";
 import trackingPage from "./pages/trackingPage";
+
 import {
-  LOGIN_ROUTE,
   ADMIN_ROUTE,
   REGISTRATION_ROUTE,
   TRACKING_ROUTER,
@@ -21,16 +21,17 @@ export const publicRoutes = [
   },
 ];
 
-export const authRoutes = [
-  {
-    path: ADMIN_ROUTE,
-    Component: AdminPage,
-  },
-];
+// export const authRoutes = [
+
+// ];
 
 export const privateRoutes = [
   {
     path: TRACKING_ROUTER,
     Component: trackingPage,
+  },
+  {
+    path: ADMIN_ROUTE,
+    Component: AdminPage,
   },
 ];

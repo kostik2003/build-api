@@ -22,8 +22,9 @@ export default class Store {
     try {
       const res = await AuthService.login(email, password);
       // console.log(res); // приходит объект
-      this.setAuth(true);
-      this.setUser(res.data.user);
+      const auth = this.setAuth(true);
+      const setUser = this.setUser(res.data.user);
+      return res, auth, setUser;
     } catch (e) {
       console.error(e);
     }
@@ -32,7 +33,7 @@ export default class Store {
   async registration(email, password, name) {
     try {
       const res = await AuthService.registration(email, password, name);
-      localStorage.setItem("token", res.data.access_token);
+      // localStorage.setItem("token", res.data.access_token);
       this.setAuth(true);
       this.setUser(res.data.user);
     } catch (e) {
@@ -43,7 +44,7 @@ export default class Store {
   async logout() {
     try {
       const res = await AuthService.logout();
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
       this.setAuth(false);
       this.setUser();
     } catch (e) {

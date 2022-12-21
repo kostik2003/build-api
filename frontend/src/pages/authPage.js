@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import { Context } from "..";
 
 import { observer } from "mobx-react-lite";
-import AuthService from "../service/AuthService";
-import { REGISTRATION_ROUTE, TRACKING_ROUTER } from "../utils/consts";
+import { TRACKING_ROUTER } from "../utils/consts";
 
 const AuthPage = () => {
   const [email, setEmail] = useState("");
@@ -19,7 +18,11 @@ const AuthPage = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     store.login(email, password, navigate).then(() => {
-      navigate(TRACKING_ROUTER);
+      if (store.isAuth == true) {
+        navigate(TRACKING_ROUTER);
+      } else {
+        console.log("Нфыва");
+      }
     });
   };
 
@@ -41,8 +44,6 @@ const AuthPage = () => {
       />
       <br></br>
       <br></br>
-
-      {/* х**во работает */}
 
       <Button variant="outline-dark" type="submit">
         Войти

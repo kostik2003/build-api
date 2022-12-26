@@ -1,9 +1,8 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Context } from "..";
-
 import { observer } from "mobx-react-lite";
 import { TRACKING_ROUTER } from "../utils/consts";
 
@@ -18,12 +17,13 @@ const AuthPage = () => {
   const handleLogin = (e) => {
     e.preventDefault();
     store.login(email, password, navigate).then(() => {
-      if (store.isAuth == true) {
+      if (store.isAuth === true) {
         navigate(TRACKING_ROUTER);
       } else {
         console.log("Нфыва");
       }
     });
+    console.log(handleLogin);
   };
 
   return (

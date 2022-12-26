@@ -1,4 +1,5 @@
 import axios from "axios";
+import GetCookie from "../hooks/getCookie";
 
 export const API_URL = `http://localhost:3001`; // Базовый УРЛ на сервер.
 
@@ -8,7 +9,7 @@ const $api = axios.create({
 });
 
 $api.interceptors.request.use((config) => {
-  config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
+  config.headers.Authorization = `Bearer ${GetCookie("usrin")}`;
   return config;
 });
 

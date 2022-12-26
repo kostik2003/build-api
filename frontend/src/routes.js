@@ -27,7 +27,11 @@ export const publicRoutes = [
   },
 ];
 
-// export const authRoutes = [
+// export const adminRoutes = [
+//   {
+//     path: ADMIN_ROUTE,
+//     Component: AdminPage,
+//   },
 
 // ];
 

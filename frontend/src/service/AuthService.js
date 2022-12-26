@@ -1,6 +1,7 @@
 import $api from "../http";
 import RemoveCookie from "../hooks/removeCookie";
 import SetCookie from "../hooks/setCookie";
+import GetCookie from "../hooks/getCookie";
 
 export default class AuthService {
   static async login(email, password) {
@@ -19,6 +20,6 @@ export default class AuthService {
   }
 
   static async logout() {
-    return $api.post("/authentication/logout");
+    RemoveCookie("usrin");
   }
 }

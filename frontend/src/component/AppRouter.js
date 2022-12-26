@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "../routes";
 import { Context } from "..";
 import { observer } from "mobx-react-lite";
-import { AUTH_ROUTE } from "../utils/consts";
+import { START_ROUTER } from "../utils/consts";
 
 const AppRouter = () => {
   const { store } = useContext(Context);
@@ -20,7 +20,8 @@ const AppRouter = () => {
         privateRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} exact />
         ))}
-      <Route path="*" element={<Navigate to={AUTH_ROUTE} replace />} />
+      {/* {<Route key={path} path={path} element={<Component />} />} */}
+      <Route path="*" element={<Navigate to={START_ROUTER} replace />} />
     </Routes>
   );
 };

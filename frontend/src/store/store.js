@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_URL } from "../http";
 import AuthService from "../service/AuthService";
 import { makeAutoObservable } from "mobx";
+import GetCookie from "../hooks/getCookie";
 
 export default class Store {
   isAuth = false;
@@ -14,16 +15,15 @@ export default class Store {
     this.isAuth = bool;
   }
 
-  setUser(user) {
-    this.user = user;
+  setUser(email) {
+    this.email = email;
   }
 
   async login(email, password) {
     try {
       const res = await AuthService.login(email, password);
-      // console.log(res); // приходит объект
       this.setAuth(true);
-      this.setUser(res.data.user);
+      this.setUser(res.data.email);
     } catch (e) {
       console.error(e);
     }
@@ -32,7 +32,6 @@ export default class Store {
   async registration(email, password, name) {
     try {
       const res = await AuthService.registration(email, password, name);
-      localStorage.setItem("token", res.data.access_token);
       this.setAuth(true);
       this.setUser(res.data.user);
     } catch (e) {
@@ -43,7 +42,6 @@ export default class Store {
   async logout() {
     try {
       const res = await AuthService.logout();
-      localStorage.removeItem("token");
       this.setAuth(false);
       this.setUser();
     } catch (e) {
@@ -53,10 +51,11 @@ export default class Store {
 
   async checkAuth() {
     try {
-      const res = await axios.get(`${API_URL}/authentication`, {
+      const res = await axios.get(`${API_URL}/etacar`, {
         credentials: true,
       });
-      const locStor = localStorage.setItem("token", res.data.access_token);
+      console.log(this.user);
+      GetCookie("ursin");
       this.setAuth(true);
       this.setUser(res.data.user);
     } catch (e) {

@@ -7,8 +7,10 @@ import {
   REGISTRATION_ROUTE,
   TRACKING_ROUTER,
   AUTH_ROUTE,
+  START_ROUTER,
 } from "./utils/consts";
 import RegisterPage from "./pages/registerPage";
+import StartPage from "./pages/startPage";
 
 export const publicRoutes = [
   {
@@ -19,9 +21,17 @@ export const publicRoutes = [
     path: AUTH_ROUTE,
     Component: AuthPage,
   },
+  {
+    path: START_ROUTER,
+    Component: StartPage,
+  },
 ];
 
-// export const authRoutes = [
+// export const adminRoutes = [
+//   {
+//     path: ADMIN_ROUTE,
+//     Component: AdminPage,
+//   },
 
 // ];
 

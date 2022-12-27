@@ -1,11 +1,10 @@
 import { Body, Controller, Get, Post, Param, Delete } from '@nestjs/common';
-import { User, Role } from '@prisma/client';
+import { User, Role, Prisma } from '@prisma/client';
 import { UserService } from './user.service';
-import { User as UserModel, Post as PostModel } from '@prisma/client';
+import { User as UserModel, Tracking } from '@prisma/client';
 import { Roles } from 'src/roles/roles.decorator';
-import { Any } from 'typeorm';
 
-@Controller('registration')
+@Controller('tracking')
 export class UserController {
     constructor(private readonly userServise: UserService) {}
 
@@ -25,10 +24,29 @@ export class UserController {
 
     @Post()
     async createUser(@Body() authData: { name: string; email: string; password: string }): Promise<User> {
-        const resoult = this.userServise.createUser(authData);
-        console.log(resoult);
-        return resoult;
+        const user = this.userServise.createUser(authData);
+        console.log(user);
+        return user;
     }
+
+    @Post('newpost')
+    async createReport(
+        @Body()
+        trackData: {
+            gitSourse: string;
+            discription: string;
+            target: string;
+            author: any;
+            nextDayDiscription: string;
+            workTime: string;
+            reworked: string;
+            calendare: string;
+        }
+    ) {
+        const report = this.userServise.createReport(trackData);
+        return report;
+    }
+
     // roles: Role[];
 
     // @Get() //test request for mongo

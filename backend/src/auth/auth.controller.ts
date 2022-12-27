@@ -20,10 +20,10 @@ export class AuthController {
     @Post('login')
     async login(@Request() req, @Res({ passthrough: true }) res: Response) {
         const user = req.user;
+        let email = user.email;
         user.password = undefined;
         const token = await this.authService.getJwtToken(user);
-        console.log(token);
-        return token;
+        return { email, token };
     }
 
     @UseGuards(JwtAuthGuard)

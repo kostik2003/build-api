@@ -23,7 +23,8 @@ export default class Store {
     try {
       const res = await AuthService.login(email, password);
       this.setAuth(true);
-      this.setUser(res.data.email);
+      this.setUser(res.email);
+      console.log(res);
     } catch (e) {
       console.error(e);
     }
@@ -50,6 +51,7 @@ export default class Store {
   }
 
   async checkAuth() {
+    //axios 404 etaCar
     try {
       const res = await axios.get(`${API_URL}/etacar`, {
         credentials: true,
@@ -63,3 +65,5 @@ export default class Store {
     }
   }
 }
+
+//access_token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1heGltLkl2YW5jaGlrQG1haWwucnUiLCJzdWIiOjEsIm5hbWUiOiJNYXgiLCJpYXQiOjE2NzIzNDQ5Mjh9.OqUwf391zHucsRTc8iwRdg-2Kn0qa36ZZjS2YEI2VXA"

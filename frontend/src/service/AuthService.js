@@ -1,7 +1,6 @@
 import $api from "../http";
 import RemoveCookie from "../hooks/removeCookie";
 import SetCookie from "../hooks/setCookie";
-import GetCookie from "../hooks/getCookie";
 
 export default class AuthService {
   static async login(email, password) {
@@ -11,8 +10,9 @@ export default class AuthService {
     });
     // console.log("123" + response);
     RemoveCookie("usrin");
-    SetCookie("usrin", JSON.stringify(response));
-    return response;
+    SetCookie("usrin", JSON.stringify(response.data));
+    console.log(response.data);
+    return response.data;
   }
 
   static async registration(email, password, name) {

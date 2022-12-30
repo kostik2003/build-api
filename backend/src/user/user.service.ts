@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, User } from '@prisma/client';
+import { Prisma, User, Tracking } from '@prisma/client';
+import { userInfo } from 'os';
 import { PrismaService } from 'prisma/prisma.service';
 @Injectable()
 export class UserService {
@@ -24,12 +25,38 @@ export class UserService {
         });
     }
 
-    async getAllUsers(params: { skip?: number; take?: number; where?: Prisma.PostWhereInput }): Promise<User[]> {
-        const { skip, take, where } = params;
+    async getAllUsers(): Promise<User[]> {
         return this.prisma.user.findMany({
-            skip,
-            take,
-            where,
+            include: {
+                posts: true,
+            },
         });
     }
+
+    async getAllposts(): Promise<Tracking[]> {
+        return this.prisma.tracking.findMany();
+    }
+
+    async createReport(data: Tracking, userEmail: string): Promise<Tracking> {
+        const post = await this.prisma.tracking.create({
+            data: {
+                discription: data.discription,
+                gitSourse: data.gitSourse,
+                target: data.target,
+                workTime: data.workTime,
+                reworked: data.reworked,
+                calendare: data.calendare,
+                nextDayDiscription: data.nextDayDiscription,
+                author: {
+                    connect: {
+                        email: userEmail,
+                    },
+                },
+            },
+        });
+
+        return post;
+    }
+
+    // async createReport() {}
 }

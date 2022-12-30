@@ -16,24 +16,24 @@ enum Role {
 }
 
 model User {
-  id        Int     @default(autoincrement()) @id
-  email     String  @unique
-  name      String 
-  password  String
-  role      Role  @default(USER)
+  id                  Int     @default(autoincrement()) @id
+  email               String  @unique
+  name                String 
+  password            String
+  posts               Tracking[]
+  role                Role  @default(USER)
 }
 
-model Post {
-  id        Int      @default(autoincrement()) @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  authorId  Int?
-}
-
-model Time {
+model Tracking {
   id                  Int      @default(autoincrement()) @id
-  time_now            DateTime
-  time_working        Int
-  time_work_more      Int
+  calendare           DateTime
+  discription         String
+  gitSourse           String
+  nextDayDiscription  String?
+  reworked            String?
+  target              String
+  workTime            String
+  author              User     @relation(fields: [authorId], references: [id])
+  authorId            Int
+
 }

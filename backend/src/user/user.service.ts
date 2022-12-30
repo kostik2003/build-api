@@ -25,28 +25,37 @@ export class UserService {
         });
     }
 
-    async getAllUsers(params): Promise<User[]> {
-        const { skip, take, where } = params;
+    async getAllUsers(): Promise<User[]> {
         return this.prisma.user.findMany({
-            skip,
-            take,
-            where,
+            include: {
+                posts: true,
+            },
         });
     }
 
-    async createReport(data: Tracking, userEmail: User): Promise<Tracking> {
-        const user = await this.prisma.tracking.create({
+    async getAllposts(): Promise<Tracking[]> {
+        return this.prisma.tracking.findMany();
+    }
+
+    async createReport(data: Tracking, userEmail: string): Promise<Tracking> {
+        const post = await this.prisma.tracking.create({
             data: {
-                ...data,
+                discription: data.discription,
+                gitSourse: data.gitSourse,
+                target: data.target,
+                workTime: data.workTime,
+                reworked: data.reworked,
+                calendare: data.calendare,
+                nextDayDiscription: data.nextDayDiscription,
                 author: {
                     connect: {
-                        email: userEmail.email,
+                        email: userEmail,
                     },
                 },
             },
         });
 
-        return user;
+        return post;
     }
 
     // async createReport() {}

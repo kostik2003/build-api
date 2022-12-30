@@ -1,17 +1,29 @@
-import { Body, Controller, Get, Post, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Post, Param, Delete, UseGuards, UseInterceptors } from '@nestjs/common';
 import { User, Role, Prisma } from '@prisma/client';
 import { UserService } from './user.service';
 import { User as UserModel, Tracking } from '@prisma/client';
-import { Roles } from 'src/roles/roles.decorator';
+// import { GetEmailGuard } from 'src/roles/roles.guard';
+import { Users } from 'src/roles/roles.decorator';
 
+export default class trackingDto {
+    id;
+    gitSourse: string;
+    discription: string;
+    target: string;
+    author: any;
+    nextDayDiscription: string;
+    workTime: string;
+    reworked: string;
+    calendare: Date;
+    authorId;
+}
 @Controller('tracking')
 export class UserController {
     constructor(private readonly userServise: UserService) {}
 
     @Get(':email')
-    // @Roles(Role.ADMIN)
     async getUnique(@Param('email') email: String): Promise<UserModel> {
-        console.log(email);
+        // console.log(email);
         return this.userServise.getUniqueUser({
             email: String(email),
         });
@@ -19,31 +31,27 @@ export class UserController {
 
     @Get()
     async getAllUser() {
-        return this.userServise.getAllUsers({});
+        return this.userServise.getAllUsers();
+    }
+
+    @Get('posts')
+    async getAllPosts() {
+        return this.userServise.getAllposts();
     }
 
     @Post()
     async createUser(@Body() authData: { name: string; email: string; password: string }): Promise<User> {
         const user = this.userServise.createUser(authData);
-        console.log(user);
+        // console.log(user);
         return user;
     }
 
     @Post('newpost')
-    async createReport(
-        @Body()
-        trackData: {
-            gitSourse: string;
-            discription: string;
-            target: string;
-            author: any;
-            nextDayDiscription: string;
-            workTime: string;
-            reworked: string;
-            calendare: string;
-        }
-    ) {
-        const report = this.userServise.createReport(trackData);
+    async createReport(@Users() email: string, @Body() trackData: trackingDto) {
+        const userEmail = email;
+        // console.log(trackData);
+        // console.log(userEmail);
+        const report = this.userServise.createReport(trackData, userEmail);
         return report;
     }
 
@@ -53,7 +61,6 @@ export class UserController {
     // getAll(): Promise<Product[]> {
     //     return this.productsService.getAll();
     // }
-
     @Delete(':email')
     async deleteUser(@Param('email') email: String) {
         return this.userServise.delete({

@@ -23,7 +23,7 @@ export class AuthController {
         let email = user.email;
         user.password = undefined;
         const token = await this.authService.getJwtToken(user);
-        return { email, token };
+        return token;
     }
 
     @UseGuards(JwtAuthGuard)

@@ -48,7 +48,7 @@ export class AuthService {
 
     async getJwtToken(user: any) {
         const payload = { email: user.email, sub: user.id, name: user.name };
-        const token = { access_token: this.jwtService.sign(payload, { secret: process.env.TOKEN_SECRET }) };
+        const token = this.jwtService.sign(payload, { secret: process.env.TOKEN_SECRET });
         return token;
     }
 }

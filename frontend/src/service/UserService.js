@@ -1,4 +1,5 @@
 import $api from "../http";
+import SetCookie from "../hooks/setCookie";
 
 export default class UserService {
   static fetchUsers() {

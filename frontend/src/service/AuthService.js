@@ -11,7 +11,7 @@ export default class AuthService {
     // console.log("123" + response);
     RemoveCookie("usrin");
     SetCookie("usrin", JSON.stringify(response.data));
-    console.log(response.data);
+    // console.log(response.data);
     return response.data;
   }
 

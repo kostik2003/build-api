@@ -23,8 +23,7 @@ export default class Store {
     try {
       const res = await AuthService.login(email, password);
       this.setAuth(true);
-      this.setUser(res.email);
-      console.log(res);
+      this.setUser(email);
     } catch (e) {
       console.error(e);
     }

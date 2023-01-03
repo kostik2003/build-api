@@ -23,7 +23,6 @@ const AuthPage = () => {
         console.log("Нфыва");
       }
     });
-    console.log(handleLogin);
   };
 
   return (

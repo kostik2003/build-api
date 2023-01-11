@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable, Param } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
+import { PrismaService } from 'prisma/prisma.service';
 
 export type TRegister = {
     email: string;
@@ -31,7 +32,7 @@ export class AuthService {
     async getAuthUser(email: string, plainTextPassword: string) {
         try {
             const user = await this.userService.getUniqueUser({ email });
-            const value = await this.verifyPassword(plainTextPassword, user.password);
+            await this.verifyPassword(plainTextPassword, user.password);
             user.password = undefined;
             return user;
         } catch (error) {
@@ -47,8 +48,10 @@ export class AuthService {
     }
 
     async getJwtToken(user: any) {
+        const email = user.email;
         const payload = { email: user.email, sub: user.id, name: user.name };
         const token = this.jwtService.sign(payload, { secret: process.env.TOKEN_SECRET });
+        await this.userService.saveToken(email, token); //пересохранение токена
         return token;
     }
 }

@@ -15,3 +15,11 @@ export const Users = createParamDecorator((data: any, ctx: ExecutionContext) => 
     const decodeToken: any = jwtService.decode(token);
     return decodeToken.email;
 });
+
+//бред
+export const Token = createParamDecorator((data: any, ctx: ExecutionContext) => {
+    const request = ctx.switchToHttp().getRequest();
+    const authBody = request.body.token;
+    const token = authBody.slice(1, -1);
+    return token;
+});

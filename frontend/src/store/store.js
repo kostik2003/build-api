@@ -1,14 +1,20 @@
-import axios from "axios";
-import { API_URL } from "../http";
+import axios, { HttpStatusCode } from "axios";
+import $api, { $spr, API_URL } from "../http";
 import AuthService from "../service/AuthService";
 import { makeAutoObservable } from "mobx";
 import GetCookie from "../hooks/getCookie";
+import SetCookie from "../hooks/setCookie";
 
 export default class Store {
   isAuth = false;
+  isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
+  }
+
+  setLoading(bool) {
+    this.isLoading = bool;
   }
 
   setAuth(bool) {
@@ -26,6 +32,7 @@ export default class Store {
       this.setUser(email);
     } catch (e) {
       console.error(e);
+    } finally {
     }
   }
 
@@ -50,19 +57,19 @@ export default class Store {
   }
 
   async checkAuth() {
-    //axios 404 etaCar
+    this.setLoading(true);
     try {
-      const res = await axios.get(`${API_URL}/etacar`, {
+      const token = GetCookie("usrin");
+      console.log(token);
+      const res = await $api.get(`${API_URL}/authentication/token`, {
         credentials: true,
       });
-      console.log(this.user);
-      GetCookie("ursin");
       this.setAuth(true);
-      this.setUser(res.data.user);
+      this.setUser(res.data.expEmail);
     } catch (e) {
       console.error(e);
+    } finally {
+      this.setLoading(false);
     }
   }
 }
-
-//access_token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1heGltLkl2YW5jaGlrQG1haWwucnUiLCJzdWIiOjEsIm5hbWUiOiJNYXgiLCJpYXQiOjE2NzIzNDQ5Mjh9.OqUwf391zHucsRTc8iwRdg-2Kn0qa36ZZjS2YEI2VXA"

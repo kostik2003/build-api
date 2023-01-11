@@ -16,6 +16,7 @@ const TrackingPage = () => {
   const [nextDayDiscription, setNextDayDiscription] = useState("");
   const [workTime, setWorkTime] = useState("");
   const [reworked, setReworked] = useState("");
+  const [isDisable, setDisable] = useState(false);
   const [calendare, setCalendare] = useState(new Date());
 
   const { track } = useContext(Context);
@@ -118,12 +119,16 @@ const TrackingPage = () => {
           id="custom-switch"
           label="есть ли переработка"
           variant="outline-dark"
+          checked={isDisable}
+          onChange={(e) => setDisable(e.target.checked)}
         />
+
         <InputGroup className="mb-3">
           <Form.Control
             onChange={(e) => setReworked(e.target.value)}
             value={reworked}
             type={reworked}
+            disabled={!isDisable}
             placeholder="поставить цифру в часах"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"

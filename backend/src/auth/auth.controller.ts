@@ -5,6 +5,7 @@ import { TRegister } from './auth.service';
 import { UserService } from 'src/user/user.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { Response } from 'express';
+import { Token } from 'src/roles/roles.decorator';
 
 @Controller('authentication')
 export class AuthController {
@@ -32,5 +33,19 @@ export class AuthController {
         const user = req.user;
         user.password = undefined;
         return user;
+    }
+    //бред
+    // @UseGuards(JwtAuthGuard)
+    @Get('token')
+    async validToken(@Request() req) {
+        const authHeader = req.headers.authorization;
+        const tokenCookie = authHeader.split(' ')[1].slice(1, -1);
+        const tokenFromDB = await this.userService.findToken(tokenCookie);
+        const expEmail = tokenFromDB.email;
+        if (tokenFromDB.access_token === tokenCookie) {
+            return { expEmail, tokenCookie };
+        } else {
+            console.log('error 2134');
+        }
     }
 }

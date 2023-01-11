@@ -1,5 +1,6 @@
 import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
+import { Route } from "react-router-dom";
 
 import App from "./App";
 import Store from "./store/store";

@@ -14,15 +14,33 @@ export class UserService {
     }
 
     async getUniqueUser(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User> {
-        // console.log(userWhereUniqueInput);
         return this.prisma.user.findUnique({
             where: userWhereUniqueInput,
         });
     }
+
+    async saveToken(email, token) {
+        const resoult = await this.prisma.user.update({
+            where: {
+                email,
+            },
+            data: {
+                email,
+                access_token: token,
+            },
+        });
+        return resoult;
+    }
+
     async delete(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {
         return this.prisma.user.delete({
             where: userWhereUniqueInput,
         });
+    }
+
+    async findToken(access_token) {
+        const resoult = await this.prisma.user.findFirst(access_token);
+        return resoult;
     }
 
     async getAllUsers(): Promise<User[]> {

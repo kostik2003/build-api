@@ -3,7 +3,6 @@ import { Role } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 
 export const ROLES_KEY = 'roles';
-export const Roles = (...roles: Role[]) => SetMetadata(ROLES_KEY, roles);
 
 export const Users = createParamDecorator((data: any, ctx: ExecutionContext) => {
     const jwtService = new JwtService();
@@ -23,3 +22,5 @@ export const Token = createParamDecorator((data: any, ctx: ExecutionContext) => 
     const token = authBody.slice(1, -1);
     return token;
 });
+
+export const Roles = (...roles: Role[]) => SetMetadata('roles', roles);

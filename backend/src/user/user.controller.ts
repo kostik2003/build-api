@@ -23,7 +23,6 @@ export class UserController {
 
     @Get(':email')
     async getUnique(@Param('email') email: String): Promise<UserModel> {
-        // console.log(email);
         return this.userServise.getUniqueUser({
             email: String(email),
         });
@@ -42,15 +41,12 @@ export class UserController {
     @Post()
     async createUser(@Body() authData: { name: string; email: string; password: string }): Promise<User> {
         const user = this.userServise.createUser(authData);
-        // console.log(user);
         return user;
     }
 
     @Post('newpost')
     async createReport(@Users() email: string, @Body() trackData: trackingDto) {
         const userEmail = email;
-        // console.log(trackData);
-        // console.log(userEmail);
         const report = this.userServise.createReport(trackData, userEmail);
         return report;
     }

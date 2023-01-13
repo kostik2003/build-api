@@ -8,7 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './roles/roles.guard';
-import { ConfigService } from '@nestjs/config';
+import { AdminModule } from './admin/admin.module';
 
 const DB_NAME_MONGO = process.env.DB_NAME_MONGO;
 const DB_HOST = process.env.DB_HOST || 3002;
@@ -19,6 +19,7 @@ const DB_PORT_MONGO = process.env.DB_PORT_MONGO;
         UserModule,
         TrackingModule,
         AuthModule,
+        AdminModule,
     ],
     controllers: [AppController],
     providers: [AuthService, { provide: APP_GUARD, useClass: RolesGuard }],

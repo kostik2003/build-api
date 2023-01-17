@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, User, Tracking } from '@prisma/client';
+import { Prisma, User, Tracking, Tasks, Project } from '@prisma/client';
 import { userInfo } from 'os';
 import { PrismaService } from 'prisma/prisma.service';
+import { TaskService } from 'src/task/task.service';
 @Injectable()
 export class UserService {
     constructor(private prisma: PrismaService) {}
@@ -54,19 +55,28 @@ export class UserService {
         return this.prisma.tracking.findMany();
     }
 
-    async createReport(data: Tracking, userEmail: string): Promise<Tracking> {
+    async createReport(data: Tracking, userEmail: string, tasksData: Tasks, projectName: string): Promise<Tracking> {
         const post = await this.prisma.tracking.create({
             data: {
                 discription: data.discription,
-                gitSourse: data.gitSourse,
-                target: data.target,
-                workTime: data.workTime,
-                reworked: data.reworked,
                 calendare: data.calendare,
                 nextDayDiscription: data.nextDayDiscription,
+                project: {
+                    connect: {
+                        name: projectName,
+                    },
+                },
                 author: {
                     connect: {
                         email: userEmail,
+                    },
+                },
+                tasks: {
+                    create: {
+                        discription: tasksData.discription,
+                        name: tasksData.name,
+                        time: tasksData.isComplite,
+                        isComplite: tasksData.isComplite,
                     },
                 },
             },
@@ -74,6 +84,4 @@ export class UserService {
 
         return post;
     }
-
-    // async createReport() {}
 }

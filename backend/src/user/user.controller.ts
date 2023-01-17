@@ -2,21 +2,9 @@ import { Body, Controller, Get, Post, Param, Delete, UseGuards, UseInterceptors 
 import { User, Role, Prisma } from '@prisma/client';
 import { UserService } from './user.service';
 import { User as UserModel, Tracking } from '@prisma/client';
-// import { GetEmailGuard } from 'src/roles/roles.guard';
 import { Users } from 'src/roles/roles.decorator';
+import { tasksDataDto, trackingDto } from './userDto/userDto';
 
-export default class trackingDto {
-    id;
-    gitSourse: string;
-    discription: string;
-    target: string;
-    author: any;
-    nextDayDiscription: string;
-    workTime: string;
-    reworked: string;
-    calendare: Date;
-    authorId;
-}
 @Controller('tracking')
 export class UserController {
     constructor(private readonly userServise: UserService) {}
@@ -45,18 +33,18 @@ export class UserController {
     }
 
     @Post('newpost')
-    async createReport(@Users() email: string, @Body() trackData: trackingDto) {
+    async createReport(
+        @Users() email: string,
+        @Body() trackData: trackingDto,
+        tasksData: tasksDataDto,
+        projectName: string
+    ) {
         const userEmail = email;
-        const report = this.userServise.createReport(trackData, userEmail);
+        const report = this.userServise.createReport(trackData, userEmail, tasksData, projectName);
+        console.log(report);
         return report;
     }
 
-    // roles: Role[];
-
-    // @Get() //test request for mongo
-    // getAll(): Promise<Product[]> {
-    //     return this.productsService.getAll();
-    // }
     @Delete(':email')
     async deleteUser(@Param('email') email: String) {
         return this.userServise.delete({

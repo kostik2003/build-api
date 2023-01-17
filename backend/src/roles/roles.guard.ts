@@ -4,6 +4,7 @@ import { Role } from '@prisma/client';
 import { ROLES_KEY } from './roles.decorator';
 
 @Injectable()
+//роли сделать позже
 export class RolesGuard implements CanActivate {
     constructor(private reflector: Reflector) {}
 
@@ -12,7 +13,6 @@ export class RolesGuard implements CanActivate {
             context.getHandler(),
             context.getClass(),
         ]);
-        console.log(requiredRoles);
         if (!requiredRoles) {
             return true;
         }

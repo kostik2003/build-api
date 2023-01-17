@@ -15,7 +15,6 @@ export const Users = createParamDecorator((data: any, ctx: ExecutionContext) => 
     return decodeToken.email;
 });
 
-//бред
 export const Token = createParamDecorator((data: any, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
     const authBody = request.body.token;
@@ -23,4 +22,5 @@ export const Token = createParamDecorator((data: any, ctx: ExecutionContext) => 
     return token;
 });
 
+//доделать позже
 export const Roles = (...roles: Role[]) => SetMetadata('roles', roles);

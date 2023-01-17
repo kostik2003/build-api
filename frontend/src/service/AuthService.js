@@ -1,6 +1,6 @@
 import $api from "../http";
-import RemoveCookie from "../hooks/removeCookie";
-import SetCookie from "../hooks/setCookie";
+import RemoveCookie from "../Cookies/removeCookie";
+import SetCookie from "../Cookies/setCookie";
 
 export default class AuthService {
   static async login(email, password) {

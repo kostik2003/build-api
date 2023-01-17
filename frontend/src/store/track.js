@@ -7,23 +7,25 @@ export default class Track {
   }
 
   async submit(
-    gitSourse,
-    discription,
-    target,
+    tasks,
+    discriptionTrack,
     nextDayDiscreption,
-    workTime,
-    reworked,
-    calendare
+    calendare,
+    discriptionTask,
+    name,
+    time,
+    isComplite
   ) {
     try {
       const res = await UserService.createReport(
-        gitSourse,
-        discription,
-        target,
+        tasks,
+        discriptionTrack,
         nextDayDiscreption,
-        workTime,
-        reworked,
-        calendare
+        calendare,
+        discriptionTask,
+        name,
+        time,
+        isComplite
       );
     } catch (e) {
       console.error(e);

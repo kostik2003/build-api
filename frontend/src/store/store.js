@@ -1,7 +1,7 @@
 import $api, { API_URL } from "../http";
 import AuthService from "../service/AuthService";
 import { makeAutoObservable } from "mobx";
-import GetCookie from "../hooks/getCookie";
+import GetCookie from "../Cookies/getCookie";
 
 export default class Store {
   isAuth = false;

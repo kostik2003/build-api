@@ -1,25 +1,29 @@
 /*
   Warnings:
 
+  - You are about to drop the column `discription` on the `Tracking` table. All the data in the column will be lost.
   - You are about to drop the column `gitSourse` on the `Tracking` table. All the data in the column will be lost.
   - You are about to drop the column `reworked` on the `Tracking` table. All the data in the column will be lost.
   - You are about to drop the column `target` on the `Tracking` table. All the data in the column will be lost.
   - You are about to drop the column `workTime` on the `Tracking` table. All the data in the column will be lost.
+  - Added the required column `discriptionTrack` to the `Tracking` table without a default value. This is not possible if the table is not empty.
   - Added the required column `projectName` to the `Tracking` table without a default value. This is not possible if the table is not empty.
 
 */
 -- AlterTable
-ALTER TABLE "Tracking" DROP COLUMN "gitSourse",
+ALTER TABLE "Tracking" DROP COLUMN "discription",
+DROP COLUMN "gitSourse",
 DROP COLUMN "reworked",
 DROP COLUMN "target",
 DROP COLUMN "workTime",
+ADD COLUMN     "discriptionTrack" TEXT NOT NULL,
 ADD COLUMN     "projectName" TEXT NOT NULL;
 
 -- CreateTable
 CREATE TABLE "Tasks" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
-    "discription" TEXT NOT NULL,
+    "discriptionTask" TEXT NOT NULL,
     "time" TEXT,
     "isComplite" TEXT NOT NULL,
     "taskUser" INTEGER NOT NULL,

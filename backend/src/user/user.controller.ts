@@ -41,6 +41,10 @@ export class UserController {
     ) {
         const userEmail = email;
         const report = this.userServise.createReport(trackData, userEmail, tasksData, projectName);
+        console.log(trackData);
+        console.log(userEmail);
+        console.log(tasksData);
+        console.log(projectName);
         console.log(report);
         return report;
     }

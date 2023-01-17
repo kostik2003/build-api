@@ -1,7 +1,7 @@
 export class trackingDto {
     id;
     tasks: string;
-    discription: string;
+    discriptionTrack: string;
     author: any;
     nextDayDiscription: string;
     project: any;
@@ -12,7 +12,7 @@ export class trackingDto {
 
 export class tasksDataDto {
     id;
-    discription: string;
+    discriptionTask: string;
     name: string;
     time: string;
     isComplite: string;

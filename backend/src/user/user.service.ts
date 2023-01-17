@@ -58,7 +58,7 @@ export class UserService {
     async createReport(data: Tracking, userEmail: string, tasksData: Tasks, projectName: string): Promise<Tracking> {
         const post = await this.prisma.tracking.create({
             data: {
-                discription: data.discription,
+                discriptionTrack: data.discriptionTrack,
                 calendare: data.calendare,
                 nextDayDiscription: data.nextDayDiscription,
                 project: {
@@ -73,7 +73,7 @@ export class UserService {
                 },
                 tasks: {
                     create: {
-                        discription: tasksData.discription,
+                        discriptionTask: tasksData.discriptionTask,
                         name: tasksData.name,
                         time: tasksData.isComplite,
                         isComplite: tasksData.isComplite,

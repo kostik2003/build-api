@@ -6,26 +6,13 @@ export default class Track {
     makeAutoObservable(this);
   }
 
-  async submit(
-    tasks,
-    discriptionTrack,
-    nextDayDiscreption,
-    calendare,
-    discriptionTask,
-    name,
-    time,
-    isComplite
-  ) {
+  async submit(discriptionTrack, nextDayDiscreption, calendare, formFields) {
     try {
       const res = await UserService.createReport(
-        tasks,
         discriptionTrack,
         nextDayDiscreption,
         calendare,
-        discriptionTask,
-        name,
-        time,
-        isComplite
+        formFields
       );
     } catch (e) {
       console.error(e);

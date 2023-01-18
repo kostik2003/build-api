@@ -1,6 +1,5 @@
 export class trackingDto {
     id;
-    tasks: string;
     discriptionTrack: string;
     author: any;
     nextDayDiscription: string;

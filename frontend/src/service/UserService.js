@@ -6,24 +6,16 @@ export default class UserService {
   }
 
   static async createReport(
-    tasks,
     discriptionTrack,
     nextDayDiscreption,
     calendare,
-    discriptionTask,
-    name,
-    time,
-    isComplite
+    formFields
   ) {
     return $api.post("/tracking/newpost", {
-      tasks,
       discriptionTrack,
       nextDayDiscreption,
       calendare,
-      discriptionTask,
-      name,
-      time,
-      isComplite,
+      formFields,
     });
   }
 }

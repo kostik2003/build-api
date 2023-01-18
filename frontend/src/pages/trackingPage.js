@@ -6,20 +6,17 @@ import Form from "react-bootstrap/Form";
 import AuthService from "../service/AuthService";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import Dropdown from "react-bootstrap/Dropdown";
 import { observer } from "mobx-react-lite";
 import { Context } from "..";
 
 const TrackingPage = () => {
-  const [gitSourse, setGitSourse] = useState("");
-  const [discription, setDiscription] = useState("");
-  const [target, setTarget] = useState("");
+  const [discriptionTrack, setdiscriptionTrack] = useState("");
   const [nextDayDiscription, setNextDayDiscription] = useState("");
-  const [workTime, setWorkTime] = useState("");
-  const [reworked, setReworked] = useState("");
-  const [isDisable, setDisable] = useState(false);
   const [calendare, setCalendare] = useState(new Date());
-
-  const [formFields, setFormFields] = useState([{ task: "" }]);
+  const [formFields, setFormFields] = useState([
+    { name: "", discriptionTask: "", time: "", isComplite: "" },
+  ]);
 
   const handleFormChange = (event, index) => {
     let data = [...formFields];
@@ -27,14 +24,12 @@ const TrackingPage = () => {
     setFormFields(data);
   };
 
-  const submit = (e) => {
-    e.preventDefault();
-    console.log(formFields);
-  };
-
   const addFields = () => {
     let object = {
-      task: "",
+      name: "",
+      discriptionTask: "",
+      time: "",
+      isComplite: "",
     };
 
     setFormFields([...formFields, object]);
@@ -50,16 +45,7 @@ const TrackingPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    track.submit(
-      gitSourse,
-      discription,
-      target,
-      nextDayDiscription,
-      workTime,
-      reworked,
-      calendare,
-      formFields
-    );
+    track.submit(discriptionTrack, nextDayDiscription, calendare, formFields);
   };
 
   const logout = () => {
@@ -71,6 +57,7 @@ const TrackingPage = () => {
     <>
       <div className="App" onSubmit={handleSubmit}>
         <h3>trackingPage</h3>
+
         <Form
           className="mb-4"
           style={{
@@ -78,43 +65,32 @@ const TrackingPage = () => {
             paddingRight: "100px",
           }}
         >
+          <Dropdown className="d-inline" autoClose="inside">
+            <Dropdown.Toggle
+              id="dropdown-autoclose-inside"
+              variant="outline-dark"
+            >
+              Выбор проекта
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu variant="outline-dark">
+              <Dropdown.Item>BluSvn</Dropdown.Item>
+              <Dropdown.Item>PetPassword</Dropdown.Item>
+              <Dropdown.Item>HellowWorld</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          <br></br>
+          <br></br>
           <InputGroup className="mb-3">
             <Form.Control
-              onChange={(e) => setGitSourse(e.target.value)}
-              value={gitSourse}
-              type={gitSourse}
-              placeholder="https://github.com/pull"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-            />
-            <InputGroup.Text id="basic-addon2">
-              Ссылка на Pull Request
-            </InputGroup.Text>
-          </InputGroup>
-          <InputGroup className="mb-3">
-            <Form.Control
-              onChange={(e) => setDiscription(e.target.value)}
-              value={discription}
-              type={discription}
+              onChange={(e) => setdiscriptionTrack(e.target.value)}
+              value={discriptionTrack}
+              type={discriptionTrack}
               placeholder="описать вручную"
               aria-label="Recipient's username"
               aria-describedby="basic-addon2"
             />
             <InputGroup.Text id="basic-addon2">Над чем работал</InputGroup.Text>
-          </InputGroup>
-
-          <InputGroup className="mb-3">
-            <Form.Control
-              onChange={(e) => setTarget(e.target.value)}
-              value={target}
-              type={target}
-              placeholder="Да/Нет"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-            />
-            <InputGroup.Text id="basic-addon2">
-              Цель достигнута?
-            </InputGroup.Text>
           </InputGroup>
 
           <InputGroup className="mb-3">
@@ -131,53 +107,53 @@ const TrackingPage = () => {
             </InputGroup.Text>
           </InputGroup>
 
-          <InputGroup className="mb-3">
-            <Form.Control
-              onChange={(e) => setWorkTime(e.target.value)}
-              value={workTime}
-              type={workTime}
-              placeholder="поставить цифру в часах"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-            />
-            <InputGroup.Text id="basic-addon2">
-              Отработанное время
-            </InputGroup.Text>
-          </InputGroup>
-
-          <Form.Check
-            type="switch"
-            id="custom-switch"
-            label="есть ли переработка"
-            variant="outline-dark"
-            checked={isDisable}
-            onChange={(e) => setDisable(e.target.checked)}
-          />
-
-          <InputGroup className="mb-3">
-            <Form.Control
-              onChange={(e) => setReworked(e.target.value)}
-              value={reworked}
-              type={reworked}
-              disabled={!isDisable}
-              placeholder="поставить цифру в часах"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-            />
-            <InputGroup.Text id="basic-addon2">
-              переработанное время
-            </InputGroup.Text>
-          </InputGroup>
-
           {formFields.map((form, index) => {
             return (
               <div key={index}>
-                <Form.Control
-                  name="task"
-                  placeholder="Task"
-                  onChange={(event) => handleFormChange(event, index)}
-                  value={form.task}
-                />
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    name="name"
+                    placeholder="Название"
+                    onChange={(event) => handleFormChange(event, index)}
+                    value={form.name}
+                  />
+                  <InputGroup.Text id="basic-addon2">
+                    Название таски
+                  </InputGroup.Text>
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    name="discriptionTask"
+                    placeholder="что было сделано"
+                    onChange={(event) => handleFormChange(event, index)}
+                    value={form.discriptionTask}
+                  />
+                  <InputGroup.Text id="basic-addon2">
+                    Описание таски
+                  </InputGroup.Text>
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    name="time"
+                    placeholder="в часах"
+                    onChange={(event) => handleFormChange(event, index)}
+                    value={form.time}
+                  />
+                  <InputGroup.Text id="basic-addon2">
+                    Затраченное время
+                  </InputGroup.Text>
+                </InputGroup>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    name="isComplite"
+                    placeholder="Да/Нет"
+                    onChange={(event) => handleFormChange(event, index)}
+                    value={form.isComplite}
+                  />
+                  <InputGroup.Text id="basic-addon2">
+                    Выполнено?
+                  </InputGroup.Text>
+                </InputGroup>
                 <Button variant="dark" onClick={() => removeFields(index)}>
                   Remove
                 </Button>

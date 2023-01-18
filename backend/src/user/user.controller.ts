@@ -3,7 +3,7 @@ import { User, Role, Prisma } from '@prisma/client';
 import { UserService } from './user.service';
 import { User as UserModel, Tracking } from '@prisma/client';
 import { Users } from 'src/roles/roles.decorator';
-import { tasksDataDto, trackingDto } from './userDto/userDto';
+import { tasksDataDto, trackingDto } from './userDto/Dto';
 
 @Controller('tracking')
 export class UserController {
@@ -42,10 +42,7 @@ export class UserController {
         const userEmail = email;
         const report = this.userServise.createReport(trackData, userEmail, tasksData, projectName);
         console.log(trackData);
-        console.log(userEmail);
-        console.log(tasksData);
-        console.log(projectName);
-        console.log(report);
+        // console.log(report);
         return report;
     }
 

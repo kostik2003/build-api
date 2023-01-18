@@ -13,6 +13,7 @@ import { Context } from "..";
 const TrackingPage = () => {
   const [discriptionTrack, setdiscriptionTrack] = useState("");
   const [nextDayDiscription, setNextDayDiscription] = useState("");
+  const [nameProject, setNameProject] = useState();
   const [calendare, setCalendare] = useState(new Date());
   const [formFields, setFormFields] = useState([
     { name: "", discriptionTask: "", time: "", isComplite: "" },
@@ -45,7 +46,13 @@ const TrackingPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    track.submit(discriptionTrack, nextDayDiscription, calendare, formFields);
+    track.submit(
+      discriptionTrack,
+      nameProject,
+      nextDayDiscription,
+      calendare,
+      formFields
+    );
   };
 
   const logout = () => {
@@ -74,9 +81,20 @@ const TrackingPage = () => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu variant="outline-dark">
-              <Dropdown.Item>BluSvn</Dropdown.Item>
-              <Dropdown.Item>PetPassword</Dropdown.Item>
-              <Dropdown.Item>HellowWorld</Dropdown.Item>
+              <Dropdown.Item onClick={(e) => setNameProject((e = "BluSvn"))}>
+                BluSvn
+              </Dropdown.Item>
+
+              <Dropdown.Item
+                onClick={(e) => setNameProject((e = "PetPassword"))}
+              >
+                PetPassword
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={(e) => setNameProject((e = "HellowWorld"))}
+              >
+                HellowWorld
+              </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           <br></br>

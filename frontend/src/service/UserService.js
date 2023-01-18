@@ -7,12 +7,14 @@ export default class UserService {
 
   static async createReport(
     discriptionTrack,
+    nameProject,
     nextDayDiscreption,
     calendare,
     formFields
   ) {
     return $api.post("/tracking/newpost", {
       discriptionTrack,
+      nameProject,
       nextDayDiscreption,
       calendare,
       formFields,

@@ -1,10 +1,12 @@
 export class trackingDto {
     id;
     discriptionTrack: string;
+    nameProject: string;
     author: any;
     nextDayDiscription: string;
     project: any;
     projectName: string;
+    formFields: [];
     calendare: Date;
     authorId;
 }

@@ -72,6 +72,9 @@ const TrackingPage = () => {
             paddingRight: "100px",
           }}
         >
+          <h3>
+            {nameProject !== undefined ? `${nameProject} ` : "Выберите проект"}
+          </h3>
           <Dropdown className="d-inline" autoClose="inside">
             <Dropdown.Toggle
               id="dropdown-autoclose-inside"

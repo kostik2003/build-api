@@ -33,16 +33,11 @@ export class UserController {
     }
 
     @Post('newpost')
-    async createReport(
-        @Users() email: string,
-        @Body() trackData: trackingDto,
-        tasksData: tasksDataDto,
-        projectName: string
-    ) {
+    async createReport(@Users() email: string, @Body() trackData: trackingDto, tasksData: tasksDataDto) {
         const userEmail = email;
-        const report = this.userServise.createReport(trackData, userEmail, tasksData, projectName);
-        console.log(trackData);
-        // console.log(report);
+        const tasks = trackData.formFields;
+        const projectName = trackData.nameProject;
+        const report = this.userServise.createReport(trackData, userEmail, tasks, projectName);
         return report;
     }
 

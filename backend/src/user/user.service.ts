@@ -55,7 +55,16 @@ export class UserService {
         return this.prisma.tracking.findMany();
     }
 
-    async createReport(data: Tracking, userEmail: string, tasksData: Tasks, projectName: string): Promise<Tracking> {
+    async createReport(data: Tracking, userEmail: string, tasksData, projectName: string): Promise<Tracking> {
+        // console.log(data);
+        console.log(tasksData);
+        // const resoult = tasksData.map((tasksData, index) => {
+        //     console.log(tasksData);
+        //     console.log(index);
+        //     return tasksData;
+        // });
+        // console.log(resoult);
+
         const post = await this.prisma.tracking.create({
             data: {
                 discriptionTrack: data.discriptionTrack,
@@ -72,12 +81,7 @@ export class UserService {
                     },
                 },
                 tasks: {
-                    create: {
-                        discriptionTask: tasksData.discriptionTask,
-                        name: tasksData.name,
-                        time: tasksData.isComplite,
-                        isComplite: tasksData.isComplite,
-                    },
+                    create: [],
                 },
             },
         });

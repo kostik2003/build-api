@@ -56,7 +56,7 @@ export class UserService {
     }
 
     async createReport(data: Tracking, userEmail: string, tasksData, projectName: string): Promise<Tracking> {
-        // console.log(data);
+        console.log(data);
         console.log(tasksData);
         // const resoult = tasksData.map((tasksData, index) => {
         //     console.log(tasksData);
@@ -81,7 +81,7 @@ export class UserService {
                     },
                 },
                 tasks: {
-                    create: [],
+                    create: [...tasksData],
                 },
             },
         });

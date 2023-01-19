@@ -3,7 +3,6 @@ import { Role } from '@prisma/client';
 import { JwtService } from '@nestjs/jwt';
 
 export const ROLES_KEY = 'roles';
-export const Roles = (...roles: Role[]) => SetMetadata(ROLES_KEY, roles);
 
 export const Users = createParamDecorator((data: any, ctx: ExecutionContext) => {
     const jwtService = new JwtService();
@@ -16,10 +15,12 @@ export const Users = createParamDecorator((data: any, ctx: ExecutionContext) => 
     return decodeToken.email;
 });
 
-//бред
 export const Token = createParamDecorator((data: any, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
     const authBody = request.body.token;
     const token = authBody.slice(1, -1);
     return token;
 });
+
+//доделать позже
+export const Roles = (...roles: Role[]) => SetMetadata('roles', roles);

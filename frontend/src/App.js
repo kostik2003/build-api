@@ -6,8 +6,8 @@ import AppRouter from "./component/AppRouter";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import GetCookie from "./hooks/getCookie";
 import { Context } from ".";
+import GetCookie from "./Cookies/getCookie";
 
 const App = () => {
   const { store } = useContext(Context);

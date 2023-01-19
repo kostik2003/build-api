@@ -1,5 +1,5 @@
 import axios from "axios";
-import GetCookie from "../hooks/getCookie";
+import GetCookie from "../Cookies/getCookie";
 
 export const API_URL = `http://localhost:3001`; // Базовый УРЛ на сервер.
 

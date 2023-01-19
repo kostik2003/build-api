@@ -34,8 +34,7 @@ export class AuthController {
         user.password = undefined;
         return user;
     }
-    //бред
-    // @UseGuards(JwtAuthGuard)
+
     @Get('token')
     async validToken(@Request() req) {
         const authHeader = req.headers.authorization;
@@ -45,7 +44,7 @@ export class AuthController {
         if (tokenFromDB.access_token === tokenCookie) {
             return { expEmail, tokenCookie };
         } else {
-            console.log('error 2134');
+            console.error('error 2134');
         }
     }
 }

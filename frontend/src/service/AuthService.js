@@ -1,7 +1,6 @@
-import $api, { API_URL } from "../http";
-import RemoveCookie from "../hooks/removeCookie";
-import SetCookie from "../hooks/setCookie";
-import axios from "axios";
+import $api from "../http";
+import RemoveCookie from "../Cookies/removeCookie";
+import SetCookie from "../Cookies/setCookie";
 
 export default class AuthService {
   static async login(email, password) {
@@ -17,16 +16,6 @@ export default class AuthService {
   static async registration(email, password, name) {
     return $api.post("/authentication/register", { email, password, name });
   }
-
-  //понять в чем отличие
-
-  // static async checkAuth() {
-  //   return $api.get("/authentication/token", { credentials: true });
-  // }
-
-  // static async checkAuth() {
-  //   return axios.get(`${API_URL}/authentication/token`, { credentials: true });
-  // }
 
   static async logout() {
     RemoveCookie("usrin");

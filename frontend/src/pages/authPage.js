@@ -20,7 +20,7 @@ const AuthPage = () => {
       if (store.isAuth === true) {
         navigate(TRACKING_ROUTER);
       } else {
-        console.log("Нфыва");
+        console.error("navigate errore");
       }
     });
   };

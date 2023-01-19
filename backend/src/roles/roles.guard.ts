@@ -1,11 +1,10 @@
-import { Injectable, CanActivate, ExecutionContext, createParamDecorator } from '@nestjs/common';
-import { ContextIdFactory, Reflector } from '@nestjs/core';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 import { Role } from '@prisma/client';
 import { ROLES_KEY } from './roles.decorator';
-import { AuthGuard, IAuthModuleOptions } from '@nestjs/passport';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
+//роли сделать позже
 export class RolesGuard implements CanActivate {
     constructor(private reflector: Reflector) {}
 
@@ -17,7 +16,9 @@ export class RolesGuard implements CanActivate {
         if (!requiredRoles) {
             return true;
         }
-        const { user } = context.switchToHttp().getRequest();
-        return requiredRoles.some((role) => user.roles?.includes(role));
+        const user = context.switchToHttp().getRequest();
+        // console.log(user);
+        const asdf = requiredRoles.some((role) => user.roles?.includes(role));
+        return asdf;
     }
 }

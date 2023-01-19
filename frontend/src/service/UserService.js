@@ -6,22 +6,18 @@ export default class UserService {
   }
 
   static async createReport(
-    gitSourse,
-    discription,
-    target,
-    nextDayDiscription,
-    workTime,
-    reworked,
-    calendare
+    discriptionTrack,
+    nameProject,
+    nextDayDiscreption,
+    calendare,
+    formFields
   ) {
     return $api.post("/tracking/newpost", {
-      gitSourse,
-      discription,
-      target,
-      nextDayDiscription,
-      workTime,
-      reworked,
+      discriptionTrack,
+      nameProject,
+      nextDayDiscreption,
       calendare,
+      formFields,
     });
   }
 }

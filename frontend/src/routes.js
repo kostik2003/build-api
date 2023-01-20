@@ -1,6 +1,7 @@
 import AuthPage from "./pages/authPage";
 import AdminPage from "./pages/adminPage";
 import trackingPage from "./pages/trackingPage";
+import ProjectPage from "./pages/projectPage";
 
 import {
   ADMIN_ROUTE,
@@ -8,6 +9,7 @@ import {
   TRACKING_ROUTER,
   AUTH_ROUTE,
   START_ROUTER,
+  PROJECT_ROUTER,
 } from "./utils/consts";
 import RegisterPage from "./pages/registerPage";
 import StartPage from "./pages/startPage";
@@ -43,5 +45,9 @@ export const privateRoutes = [
   {
     path: ADMIN_ROUTE,
     Component: AdminPage,
+  },
+  {
+    path: PROJECT_ROUTER,
+    Component: ProjectPage,
   },
 ];

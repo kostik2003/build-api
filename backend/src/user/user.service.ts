@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, User, Tracking, Tasks, Project } from '@prisma/client';
 import { userInfo } from 'os';
 import { PrismaService } from 'prisma/prisma.service';
-import { TaskService } from 'src/task/task.service';
 @Injectable()
 export class UserService {
     constructor(private prisma: PrismaService) {}
@@ -52,19 +51,24 @@ export class UserService {
     }
 
     async getAllposts(): Promise<Tracking[]> {
-        return this.prisma.tracking.findMany();
+        const resoult = this.prisma.tracking.findMany();
+        return resoult;
+    }
+
+    async getAllPostsToday(): Promise<Tracking[]> {
+        //запрос по дате
+        const dateNow = new Date();
+        dateNow.getDay;
+        console.log(dateNow); //возвращает день
+        const resoult = this.prisma.tracking.findMany({
+            where: {
+                // calendare: ,
+            },
+        });
+        return resoult;
     }
 
     async createReport(data: Tracking, userEmail: string, tasksData, projectName: string): Promise<Tracking> {
-        console.log(data);
-        console.log(tasksData);
-        // const resoult = tasksData.map((tasksData, index) => {
-        //     console.log(tasksData);
-        //     console.log(index);
-        //     return tasksData;
-        // });
-        // console.log(resoult);
-
         const post = await this.prisma.tracking.create({
             data: {
                 discriptionTrack: data.discriptionTrack,

@@ -9,7 +9,7 @@ import { tasksDataDto, trackingDto } from './userDto/Dto';
 export class UserController {
     constructor(private readonly userServise: UserService) {}
 
-    @Get(':email')
+    @Get('email/:email')
     async getUnique(@Param('email') email: String): Promise<UserModel> {
         return this.userServise.getUniqueUser({
             email: String(email),
@@ -21,9 +21,10 @@ export class UserController {
         return this.userServise.getAllUsers();
     }
 
-    @Get('posts')
+    @Get('posts') //сделать запрос под дате
     async getAllPosts() {
-        return this.userServise.getAllposts();
+        const resoult = this.userServise.getAllposts();
+        return resoult;
     }
 
     @Post()

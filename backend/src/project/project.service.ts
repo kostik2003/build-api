@@ -7,9 +7,16 @@ export class ProjectService {
     constructor(private prisma: PrismaService) {}
 
     async createProject(data: Prisma.ProjectCreateInput): Promise<Project> {
-        console.log(data);
         return this.prisma.project.create({
             data,
+        });
+    }
+    async getAllProject(): Promise<Project[]> {
+        return this.prisma.project.findMany({
+            include: {
+                users: true,
+                tracking: true,
+            },
         });
     }
 }

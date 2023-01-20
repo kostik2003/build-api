@@ -11,13 +11,16 @@ import { observer } from "mobx-react-lite";
 import { Context } from "..";
 
 const TrackingPage = () => {
+  const dateTrack = new Date();
+
   const [discriptionTrack, setdiscriptionTrack] = useState("");
   const [nextDayDiscription, setNextDayDiscription] = useState("");
   const [nameProject, setNameProject] = useState();
-  const [calendare, setCalendare] = useState(new Date());
+  const [calendare, setCalendare] = useState(dateTrack);
   const [formFields, setFormFields] = useState([
     { name: "", discriptionTask: "", time: "", isComplite: "" },
   ]);
+  console.log(calendare.getDay());
 
   const handleFormChange = (event, index) => {
     let data = [...formFields];
@@ -62,9 +65,8 @@ const TrackingPage = () => {
 
   return (
     <>
+      <br></br>
       <div className="App" onSubmit={handleSubmit}>
-        <h3>trackingPage</h3>
-
         <Form
           className="mb-4"
           style={{

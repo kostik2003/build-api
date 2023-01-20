@@ -9,7 +9,7 @@ export default class Track {
   async submit(
     discriptionTrack,
     nameProject,
-    nextDayDiscreption,
+    nextDayDiscription,
     calendare,
     formFields
   ) {
@@ -17,7 +17,7 @@ export default class Track {
       const res = await UserService.createReport(
         discriptionTrack,
         nameProject,
-        nextDayDiscreption,
+        nextDayDiscription,
         calendare,
         formFields
       );

@@ -9,7 +9,6 @@ export default class Admin {
   async getUsers() {
     try {
       const res = await $api.get(`${API_URL}/admin/all`);
-      console.log(res);
     } catch {
       console.error("error Admin");
     }

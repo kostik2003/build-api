@@ -23,7 +23,7 @@ export class UserController {
 
     @Get('posts') //сделать запрос под дате
     async getAllPosts() {
-        const resoult = this.userServise.getAllposts();
+        const resoult = this.userServise.getAllPostsToday();
         return resoult;
     }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma, Project } from '@prisma/client';
+import { Prisma, Project, Tracking } from '@prisma/client';
 import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
@@ -18,5 +18,15 @@ export class ProjectService {
                 tracking: true,
             },
         });
+    }
+    async getAllTrackingToday(nameProject): Promise<Tracking[]> {
+        const dateNow = new Date().toLocaleDateString();
+        const resoult = this.prisma.tracking.findMany({
+            where: {
+                calendare: dateNow,
+                projectName: nameProject.nameProject,
+            },
+        });
+        return resoult;
     }
 }

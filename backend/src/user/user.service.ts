@@ -58,8 +58,8 @@ export class UserService {
     async getAllPostsToday(): Promise<Tracking[]> {
         //запрос по дате
         const dateNow = new Date();
-        dateNow.getDay;
-        console.log(dateNow); //возвращает день
+        const asdf = dateNow.toLocaleDateString();
+        console.log(asdf); //возвращает день
         const resoult = this.prisma.tracking.findMany({
             where: {
                 // calendare: ,

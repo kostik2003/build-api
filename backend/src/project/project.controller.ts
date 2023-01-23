@@ -15,4 +15,10 @@ export class ProjectController {
         const projects = this.projectService.getAllProject();
         return projects;
     }
+
+    @Post('tasks')
+    async getTodayTasks(@Body() nameProject) {
+        const projects = this.projectService.getAllTrackingToday(nameProject);
+        return projects;
+    }
 }

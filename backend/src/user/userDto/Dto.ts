@@ -7,7 +7,7 @@ export class trackingDto {
     project: any;
     projectName: string;
     formFields: [];
-    calendare: Date;
+    calendare: string;
     authorId;
 }
 

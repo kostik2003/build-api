@@ -1,65 +1,116 @@
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import Collapse from "react-bootstrap/Collapse";
+import Accordion from "react-bootstrap/Accordion";
+import { Context } from "..";
+import Table from "react-bootstrap/Table";
 
 export default function ProjectPage() {
-  const [open, setOpen] = useState(false);
-  const [open1, setOpen1] = useState(false);
+  const [trackings, setTracking] = useState([]);
+
+  const { project } = useContext(Context);
+
+  const getTasks = async (e) => {
+    const response = await project.getAllToday(e);
+    setTracking(response.data);
+    try {
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <div className="App">
       <h3>ProjectPage</h3>
-
-      <Button
-        onClick={() => setOpen(!open)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open}
-        variant="outline-dark"
-      >
-        BluSvn
-      </Button>
-      <div style={{ minHeight: "150px" }}>
-        <Collapse in={open} dimension="width">
-          <div id="example-collapse-text">
-            <Card body style={{ width: "700px" }}>
-              Anim pariatur cliche reprehenderit, enim eiusmod high life
-              accusamus terry richardson ad squid. Nihil anim keffiyeh
-              helvetica, craft beer labore wes anderson cred nesciunt sapiente
-              ea proident. asdfasdfasdf asdfasdfasd asdfasdfasdasdfasdf asdf
-            </Card>
-          </div>
-        </Collapse>
-      </div>
-      <br></br>
-
-      <Button
-        onClick={() => setOpen1(!open1)}
-        aria-controls="example-collapse-text"
-        aria-expanded={open1}
-        variant="outline-dark"
-      >
-        PetPassword
-      </Button>
-      <div style={{ minHeight: "150px" }}>
-        <Collapse in={open1} dimension="width">
-          <div id="example-collapse-text">
-            <Card body style={{ width: "400px" }}>
-              Anim pariatur cliche reprehenderit, enim eiusmod high life
-              accusamus terry richardson ad squid. Nihil anim keffiyeh
-              helvetica, craft beer labore wes anderson cred nesciunt sapiente
-              ea proident. asdfasdfasdf asdfasdfasd asdfasdfasdasdfasdf asdf
-            </Card>
-          </div>
-        </Collapse>
-      </div>
-      <br></br>
-
-      <Button variant="outline-dark">BluSvn</Button>
-      <Button variant="outline-dark">PetPassword</Button>
-      <Button variant="outline-dark">HelloWorld</Button>
-      <br></br>
+      <Accordion>
+        <Accordion.Item onClick={(e) => getTasks((e = "BluSvn"))} eventKey="0">
+          <Accordion.Header>BluSvn</Accordion.Header>
+          <Accordion.Body>
+            <Table striped bordered hover variant="dark">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td colSpan={2}>Larry the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </Table>
+            {trackings.map((tracking) => (
+              <div key={tracking.id}>
+                {tracking.calendare}
+                {tracking.discriptionTrack + `  `}
+                {tracking.nextDayDiscription + `  `}
+                {tracking.projectName + `  `}
+              </div>
+            ))}
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item
+          onClick={(e) => getTasks((e = "PetPassword"))}
+          eventKey="1"
+        >
+          <Accordion.Header>PetPassword</Accordion.Header>
+          <Accordion.Body>
+            <Table striped bordered hover variant="dark">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Username</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td colSpan={2}>Larry the Bird</td>
+                  <td>@twitter</td>
+                </tr>
+              </tbody>
+            </Table>
+            {trackings.map((tracking) => (
+              <div key={tracking.id}>
+                {tracking.calendare}
+                {tracking.discriptionTrack + `  `}
+                {tracking.nextDayDiscription + `  `}
+                {tracking.projectName + `  `}
+              </div>
+            ))}
+          </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
       <br></br>
 
       <Link to="/tracking">

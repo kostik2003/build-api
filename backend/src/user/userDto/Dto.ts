@@ -8,7 +8,7 @@ export class trackingDto {
     projectName: string;
     formFields: [];
     calendare: string;
-    authorId;
+    authorEmail;
 }
 
 export class tasksDataDto {

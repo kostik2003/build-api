@@ -32,10 +32,10 @@ model Tracking {
   discriptionTrack    String
   nextDayDiscription  String?
   tasks               Tasks[]
-  author              User     @relation(fields: [authorId], references: [id])
+  author              User     @relation(fields: [authorEmail], references: [email])
   project             Project  @relation(fields: [projectName], references: [name])
   projectName         String
-  authorId            Int
+  authorEmail         String
 }
 
 model Tasks {

@@ -21,9 +21,9 @@ export class UserController {
         return this.userServise.getAllUsers();
     }
 
-    @Get('posts') //сделать запрос под дате
-    async getAllPosts() {
-        const resoult = this.userServise.getAllPostsToday();
+    @Get('posts')
+    async getAllPosts(@Users() userEmail: string) {
+        const resoult = this.userServise.getAllPosts(userEmail);
         return resoult;
     }
 

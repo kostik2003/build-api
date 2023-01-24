@@ -37,9 +37,13 @@ export class UserService {
         });
     }
 
-    async findToken(access_token) {
-        const resoult = await this.prisma.user.findFirst(access_token);
-        return resoult;
+    async findToken(userEmail) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                email: userEmail,
+            },
+        });
+        return user;
     }
 
     async getAllUsers(): Promise<User[]> {
@@ -50,19 +54,16 @@ export class UserService {
         });
     }
 
-    async getAllposts(): Promise<Tracking[]> {
+    async getAllPostsToday(): Promise<Tracking[]> {
         const resoult = this.prisma.tracking.findMany();
         return resoult;
     }
 
-    async getAllPostsToday(): Promise<Tracking[]> {
-        //запрос по дате
-        const dateNow = new Date();
-        const asdf = dateNow.toLocaleDateString();
-        console.log(asdf); //возвращает день
+    async getAllPosts(userEmail): Promise<Tracking[]> {
+        const dateNow = new Date().toLocaleDateString();
         const resoult = this.prisma.tracking.findMany({
             where: {
-                // calendare: ,
+                authorEmail: userEmail,
             },
         });
         return resoult;

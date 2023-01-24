@@ -42,6 +42,12 @@ export class UserController {
         return report;
     }
 
+    @Delete('delete') //3.14 Здец (переделывать)
+    async deleteReport(@Body() trackingId) {
+        const track = this.userServise.deleteTracking(trackingId);
+        return track;
+    }
+
     @Delete(':email')
     async deleteUser(@Param('email') email: String) {
         return this.userServise.delete({

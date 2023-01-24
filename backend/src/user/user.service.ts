@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, User, Tracking, Tasks, Project } from '@prisma/client';
 import { userInfo } from 'os';
 import { PrismaService } from 'prisma/prisma.service';
+import { trackingDto } from './userDto/Dto';
 @Injectable()
 export class UserService {
     constructor(private prisma: PrismaService) {}
@@ -30,7 +31,28 @@ export class UserService {
         });
         return resoult;
     }
+    //удаление трэка конкретного юзера
+    //Переделывать
+    async deleteTracking(trackingId) {
+        console.log(trackingId);
 
+        const deleteTask = this.prisma.tasks.deleteMany({
+            where: {
+                taskUser: trackingId.id,
+            },
+        });
+
+        const deleteTrack = this.prisma.tracking.delete({
+            where: {
+                id: trackingId.id,
+            },
+        });
+
+        const resoult = this.prisma.$transaction([deleteTask, deleteTrack]);
+        // const resoul32 = this.prisma.$disconnect  ??? какой то дисконнект.
+        return resoult;
+    }
+    //
     async delete(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {
         return this.prisma.user.delete({
             where: userWhereUniqueInput,

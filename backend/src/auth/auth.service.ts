@@ -52,7 +52,6 @@ export class AuthService {
         const payload = { email: user.email, sub: user.id, name: user.name };
         const token = this.jwtService.sign(payload, { secret: process.env.TOKEN_SECRET });
         await this.userService.saveToken(email, token); //пересохранение токена
-        console.log(token);
         return token;
     }
 }

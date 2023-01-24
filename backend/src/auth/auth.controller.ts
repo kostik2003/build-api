@@ -21,7 +21,6 @@ export class AuthController {
     @Post('login')
     async login(@Request() req, @Res({ passthrough: true }) res: Response) {
         const user = req.user;
-        console.log(user);
         let email = user.email;
         user.password = undefined;
         const token = await this.authService.getJwtToken(user);

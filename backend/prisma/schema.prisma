@@ -35,7 +35,7 @@ model Tracking {
   author              User     @relation(fields: [authorEmail], references: [email])
   project             Project  @relation(fields: [projectName], references: [name])
   projectName         String
-  authorEmail         String
+  authorEmail         String   
 }
 
 model Tasks {

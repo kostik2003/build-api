@@ -8,16 +8,20 @@ export default class UserService {
   static async createReport(
     discriptionTrack,
     nameProject,
-    nextDayDiscreption,
+    nextDayDiscription,
     calendare,
     formFields
   ) {
     return $api.post("/tracking/newpost", {
       discriptionTrack,
       nameProject,
-      nextDayDiscreption,
+      nextDayDiscription,
       calendare,
       formFields,
     });
+  }
+
+  static async getAllTracking() {
+    return $api.get("/tracking/posts");
   }
 }

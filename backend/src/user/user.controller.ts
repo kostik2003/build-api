@@ -9,7 +9,7 @@ import { tasksDataDto, trackingDto } from './userDto/Dto';
 export class UserController {
     constructor(private readonly userServise: UserService) {}
 
-    @Get(':email')
+    @Get('email/:email')
     async getUnique(@Param('email') email: String): Promise<UserModel> {
         return this.userServise.getUniqueUser({
             email: String(email),
@@ -22,8 +22,9 @@ export class UserController {
     }
 
     @Get('posts')
-    async getAllPosts() {
-        return this.userServise.getAllposts();
+    async getAllPosts(@Users() userEmail: string) {
+        const resoult = this.userServise.getAllPosts(userEmail);
+        return resoult;
     }
 
     @Post()
@@ -39,6 +40,12 @@ export class UserController {
         const projectName = trackData.nameProject;
         const report = this.userServise.createReport(trackData, userEmail, tasks, projectName);
         return report;
+    }
+
+    @Delete('delete') //3.14 Здец (переделывать)
+    async deleteReport(@Body() trackingId) {
+        const track = this.userServise.deleteTracking(trackingId);
+        return track;
     }
 
     @Delete(':email')

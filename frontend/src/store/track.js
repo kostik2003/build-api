@@ -9,7 +9,7 @@ export default class Track {
   async submit(
     discriptionTrack,
     nameProject,
-    nextDayDiscreption,
+    nextDayDiscription,
     calendare,
     formFields
   ) {
@@ -17,10 +17,19 @@ export default class Track {
       const res = await UserService.createReport(
         discriptionTrack,
         nameProject,
-        nextDayDiscreption,
+        nextDayDiscription,
         calendare,
         formFields
       );
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async getAllTracking() {
+    try {
+      const res = UserService.getAllTracking();
+      return res;
     } catch (e) {
       console.error(e);
     }

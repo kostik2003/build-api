@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, User, Tracking, Tasks, Project } from '@prisma/client';
 import { userInfo } from 'os';
 import { PrismaService } from 'prisma/prisma.service';
-import { TaskService } from 'src/task/task.service';
+import { trackingDto } from './userDto/Dto';
 @Injectable()
 export class UserService {
     constructor(private prisma: PrismaService) {}
@@ -31,16 +31,41 @@ export class UserService {
         });
         return resoult;
     }
+    //удаление трэка конкретного юзера
+    //Переделывать
+    async deleteTracking(trackingId) {
+        console.log(trackingId);
 
+        const deleteTask = this.prisma.tasks.deleteMany({
+            where: {
+                taskUser: trackingId.id,
+            },
+        });
+
+        const deleteTrack = this.prisma.tracking.delete({
+            where: {
+                id: trackingId.id,
+            },
+        });
+
+        const resoult = this.prisma.$transaction([deleteTask, deleteTrack]);
+        // const resoul32 = this.prisma.$disconnect  ??? какой то дисконнект.
+        return resoult;
+    }
+    //
     async delete(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {
         return this.prisma.user.delete({
             where: userWhereUniqueInput,
         });
     }
 
-    async findToken(access_token) {
-        const resoult = await this.prisma.user.findFirst(access_token);
-        return resoult;
+    async findToken(userEmail) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                email: userEmail,
+            },
+        });
+        return user;
     }
 
     async getAllUsers(): Promise<User[]> {
@@ -51,20 +76,22 @@ export class UserService {
         });
     }
 
-    async getAllposts(): Promise<Tracking[]> {
-        return this.prisma.tracking.findMany();
+    async getAllPostsToday(): Promise<Tracking[]> {
+        const resoult = this.prisma.tracking.findMany();
+        return resoult;
+    }
+
+    async getAllPosts(userEmail): Promise<Tracking[]> {
+        const dateNow = new Date().toLocaleDateString();
+        const resoult = this.prisma.tracking.findMany({
+            where: {
+                authorEmail: userEmail,
+            },
+        });
+        return resoult;
     }
 
     async createReport(data: Tracking, userEmail: string, tasksData, projectName: string): Promise<Tracking> {
-        console.log(data);
-        console.log(tasksData);
-        // const resoult = tasksData.map((tasksData, index) => {
-        //     console.log(tasksData);
-        //     console.log(index);
-        //     return tasksData;
-        // });
-        // console.log(resoult);
-
         const post = await this.prisma.tracking.create({
             data: {
                 discriptionTrack: data.discriptionTrack,

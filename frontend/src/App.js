@@ -36,6 +36,7 @@ const App = () => {
             <Nav.Link href="/authentication/registration">
               Registration
             </Nav.Link>
+            {store.isAuth ? <Nav.Link href="/project">Projects</Nav.Link> : ""}
           </Nav>
         </Container>
       </Navbar>

@@ -59,6 +59,7 @@ const AuthPage = () => {
       <br></br>
       <br></br>
       <h5>Maxim.Ivanchik@mail.ru</h5>
+      <h5>Kostya.Ivanchik@mail.ru</h5>
     </form>
   );
 };

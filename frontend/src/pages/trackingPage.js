@@ -10,7 +10,9 @@ import "react-calendar/dist/Calendar.css";
 // import Calendar from "@ericz1803/react-google-calendar";
 import Dropdown from "react-bootstrap/Dropdown";
 import { observer } from "mobx-react-lite";
+import Table from "react-bootstrap/Table";
 import { Context } from "..";
+import Accordion from "react-bootstrap/Accordion";
 
 const TrackingPage = () => {
   const dateTrack = new Date();
@@ -21,9 +23,14 @@ const TrackingPage = () => {
   const [nextDayDiscription, setNextDayDiscription] = useState("");
   const [nameProject, setNameProject] = useState();
   const [calendare, setCalendare] = useState(dateTrack);
+  const [trackings, setTracking] = useState([]);
   const [formFields, setFormFields] = useState([
     { name: "", discriptionTask: "", time: "", isComplite: "" },
   ]);
+
+  const { project } = useContext(Context); //прокинуть функцию для получения всех элементов
+
+  const { track } = useContext(Context);
 
   const handleFormChange = (event, index) => {
     let data = [...formFields];
@@ -57,8 +64,6 @@ const TrackingPage = () => {
     setFormFields(data);
   };
 
-  const { track } = useContext(Context);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     track.submit(
@@ -68,6 +73,15 @@ const TrackingPage = () => {
       calendare.toLocaleDateString(),
       formFields
     );
+  };
+
+  const getTasks = async () => {
+    const response = await track.getAllTracking();
+    setTracking(response.data);
+    try {
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const logout = () => {
@@ -90,6 +104,52 @@ const TrackingPage = () => {
             демо модэл
           </Button>
 
+          <br></br>
+          <br></br>
+          <Table striped bordered hover variant="dark">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Username</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td colSpan={2}>Larry the Bird</td>
+                <td>@twitter</td>
+              </tr>
+            </tbody>
+          </Table>
+          <Accordion>
+            <Accordion.Item onClick={() => getTasks()} eventKey="0">
+              <Accordion.Header>BluSvn</Accordion.Header>
+              <Accordion.Body>
+                {trackings.map((tracking) => (
+                  <div key={tracking.id}>
+                    {tracking.calendare + `  `}
+                    {tracking.discriptionTrack + `  `}
+                    {tracking.nextDayDiscription + `  `}
+                    {tracking.authorEmail + `  `}
+                  </div>
+                ))}
+              </Accordion.Body>
+            </Accordion.Item>
+          </Accordion>
           <Modal style={{}} show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>

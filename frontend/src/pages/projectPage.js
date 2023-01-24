@@ -57,10 +57,10 @@ export default function ProjectPage() {
             </Table>
             {trackings.map((tracking) => (
               <div key={tracking.id}>
-                {tracking.calendare}
+                {tracking.calendare + `  `}
                 {tracking.discriptionTrack + `  `}
                 {tracking.nextDayDiscription + `  `}
-                {tracking.projectName + `  `}
+                {tracking.authorEmail + `  `}
               </div>
             ))}
           </Accordion.Body>
@@ -102,10 +102,10 @@ export default function ProjectPage() {
             </Table>
             {trackings.map((tracking) => (
               <div key={tracking.id}>
-                {tracking.calendare}
+                {tracking.calendare + `  `}
                 {tracking.discriptionTrack + `  `}
                 {tracking.nextDayDiscription + `  `}
-                {tracking.projectName + `  `}
+                {tracking.authorEmail + `  `}
               </div>
             ))}
           </Accordion.Body>

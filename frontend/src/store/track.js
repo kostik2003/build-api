@@ -25,4 +25,13 @@ export default class Track {
       console.error(e);
     }
   }
+
+  async getAllTracking() {
+    try {
+      const res = UserService.getAllTracking();
+      return res;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

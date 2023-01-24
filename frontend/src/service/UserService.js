@@ -20,4 +20,8 @@ export default class UserService {
       formFields,
     });
   }
+
+  static async getAllTracking() {
+    return $api.get("/tracking/posts");
+  }
 }

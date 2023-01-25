@@ -57,6 +57,7 @@ export default function ProjectPage() {
             </Table>
             {trackings.map((tracking) => (
               <div key={tracking.id}>
+                {tracking.id + `  `}
                 {tracking.calendare + `  `}
                 {tracking.discriptionTrack + `  `}
                 {tracking.nextDayDiscription + `  `}
@@ -102,6 +103,7 @@ export default function ProjectPage() {
             </Table>
             {trackings.map((tracking) => (
               <div key={tracking.id}>
+                {tracking.id + `  `}
                 {tracking.calendare + `  `}
                 {tracking.discriptionTrack + `  `}
                 {tracking.nextDayDiscription + `  `}

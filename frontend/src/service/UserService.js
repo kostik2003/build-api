@@ -24,4 +24,11 @@ export default class UserService {
   static async getAllTracking() {
     return $api.get("/tracking/posts");
   }
+
+  static async deleteTracking(id) {
+    console.log(id);
+    const as = $api.post("/tracking/delete", { id });
+    console.log(as);
+    return as;
+  }
 }

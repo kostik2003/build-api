@@ -42,9 +42,10 @@ export class UserController {
         return report;
     }
 
-    @Delete('delete') //3.14 Здец (переделывать)
-    async deleteReport(@Body() trackingId) {
-        const track = this.userServise.deleteTracking(trackingId);
+    @Post('delete') //3.14 Здец (переделывать)
+    async deleteReport(@Users() userEmail: string, @Body() trackingId) {
+        // console.log(trackingId.id);
+        const track = this.userServise.deleteTracking(userEmail, trackingId);
         return track;
     }
 

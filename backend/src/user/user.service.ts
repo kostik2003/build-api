@@ -14,7 +14,7 @@ export class UserService {
     }
 
     async getUniqueUser(userWhereUniqueInput: Prisma.UserWhereUniqueInput): Promise<User> {
-        return this.prisma.user.findUnique({
+        return await this.prisma.user.findUnique({
             where: userWhereUniqueInput,
         });
     }
@@ -31,28 +31,26 @@ export class UserService {
         });
         return resoult;
     }
-    //удаление трэка конкретного юзера
-    //Переделывать
-    async deleteTracking(trackingId) {
-        console.log(trackingId);
 
-        const deleteTask = this.prisma.tasks.deleteMany({
+    async deleteTracking(userEmail, trackingId) {
+        const trackId = parseInt(trackingId.id);
+        const userFromBD = await this.prisma.tracking.findFirst({
             where: {
-                taskUser: trackingId.id,
+                id: trackId,
+            },
+        });
+        if (userFromBD.authorEmail !== userEmail) {
+            throw new Error('Email not valid');
+        }
+        const deleteTrack = await this.prisma.tracking.delete({
+            where: {
+                id: trackId,
             },
         });
 
-        const deleteTrack = this.prisma.tracking.delete({
-            where: {
-                id: trackingId.id,
-            },
-        });
-
-        const resoult = this.prisma.$transaction([deleteTask, deleteTrack]);
-        // const resoul32 = this.prisma.$disconnect  ??? какой то дисконнект.
-        return resoult;
+        return deleteTrack;
     }
-    //
+
     async delete(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {
         return this.prisma.user.delete({
             where: userWhereUniqueInput,

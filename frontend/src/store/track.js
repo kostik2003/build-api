@@ -34,4 +34,12 @@ export default class Track {
       console.error(e);
     }
   }
+  async deleteTracking(id) {
+    try {
+      const req = UserService.deleteTracking(id);
+      return req;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

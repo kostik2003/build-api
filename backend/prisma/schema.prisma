@@ -44,7 +44,7 @@ model Tasks {
   discriptionTask     String
   time                String?
   isComplite          String
-  task_user           Tracking    @relation(fields: [taskUser], references: [id])
+  task_user           Tracking    @relation(fields: [taskUser], references: [id], onDelete: Cascade, onUpdate: Cascade)
   taskUser            Int
 }
 

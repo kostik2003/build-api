@@ -20,6 +20,7 @@ const TrackingPage = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [discriptionTrack, setdiscriptionTrack] = useState("");
+  const [id, setId] = useState("");
   const [nextDayDiscription, setNextDayDiscription] = useState("");
   const [nameProject, setNameProject] = useState();
   const [calendare, setCalendare] = useState(dateTrack);
@@ -82,6 +83,10 @@ const TrackingPage = () => {
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const deleteTracking = (e) => {
+    track.deleteTracking(id);
   };
 
   const logout = () => {
@@ -151,11 +156,31 @@ const TrackingPage = () => {
               </tr>
             </tbody>
           </Table>
+          <Button onClick={() => getTasks()} variant="outline-dark">
+            обновить
+          </Button>
+          <br />
+          <br />
           <Accordion>
-            <Accordion.Item onClick={() => getTasks()} eventKey="0">
-              <Accordion.Header>BluSvn</Accordion.Header>
+            <Accordion.Item eventKey="0">
+              <Accordion.Header>Удалить пост</Accordion.Header>
               <Accordion.Body>
-                {trackings.map((tracking) => (
+                <InputGroup>
+                  <Form.Control
+                    onChange={(e) => setId(e.target.value)}
+                    value={id}
+                    type={id}
+                    placeholder="id поста который нужно удалить"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                  />
+                  <InputGroup.Text id="basic-addon2">ID Поста</InputGroup.Text>
+                </InputGroup>
+                <Button onClick={(e) => deleteTracking(e.target.value)}>
+                  asdf
+                </Button>
+
+                {/* {trackings.map((tracking) => (
                   <div key={tracking.id}>
                     {tracking.id + `  `}
                     {tracking.calendare + `  `}
@@ -163,7 +188,7 @@ const TrackingPage = () => {
                     {tracking.nextDayDiscription + `  `}
                     {tracking.projectName + `  `}
                   </div>
-                ))}
+                ))} */}
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
@@ -308,7 +333,9 @@ const TrackingPage = () => {
             </Modal.Footer>
           </Modal>
           <br />
+
           <br />
+
           <Calendar
             onChange={setCalendare}
             value={calendare}

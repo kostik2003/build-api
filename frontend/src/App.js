@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, NavLink } from "react-router-dom";
 import { observer } from "mobx-react-lite";
@@ -12,6 +12,8 @@ import GetCookie from "./Cookies/getCookie";
 const App = () => {
   const { store } = useContext(Context);
 
+  const [isdLoading, setIsdLoading] = useState(false);
+
   useEffect(() => {
     if (GetCookie("usrin")) {
       store.checkAuth();
@@ -21,6 +23,8 @@ const App = () => {
   if (store.isLoading) {
     return <div>Загрузка</div>;
   }
+
+  console.log(store.isLoading);
 
   return (
     <BrowserRouter>

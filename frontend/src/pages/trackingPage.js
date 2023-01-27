@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -39,15 +39,6 @@ const TrackingPage = () => {
     setFormFields(data);
   };
 
-  // const API_KEY = "YOUR_API_KEY"; кастомный календарь не работает
-  // let calendars = [
-  //   { calendarId: "YOUR_CALENDAR_ID" },
-  //   {
-  //     calendarId: "YOUR_CALENDAR_ID_2",
-  //     color: "#B241D1", //optional, specify color of calendar 2 events
-  //   },
-  // ];
-
   const addFields = () => {
     let object = {
       name: "",
@@ -75,6 +66,11 @@ const TrackingPage = () => {
       formFields
     );
   };
+
+  useEffect(() => {
+    console.log("sd");
+    getTasks();
+  }, []);
 
   const getTasks = async () => {
     const response = await track.getAllTracking();
@@ -111,7 +107,14 @@ const TrackingPage = () => {
 
           <br></br>
           <br></br>
-          <Table striped bordered hover variant="dark">
+          <Table
+            striped
+            bordered
+            hover
+            variant="dark"
+            responsive="xl"
+            size="sm"
+          >
             <thead>
               <tr>
                 <th>#</th>
@@ -123,42 +126,46 @@ const TrackingPage = () => {
             </thead>
             <tbody>
               <tr>
-                <td>
-                  {trackings.map((tracking) => (
-                    <div key={tracking.id}>{tracking.id + `  `}</div>
-                  ))}
-                </td>
-                <td>
-                  {trackings.map((tracking) => (
-                    <div key={tracking.id}>{tracking.calendare + `  `}</div>
-                  ))}
-                </td>
-                <td>
-                  {" "}
+                <th>
                   {trackings.map((tracking) => (
                     <div key={tracking.id}>
-                      {tracking.discriptionTrack + `  `}
+                      {tracking.id}
+                      {/* <Button variant="dark" onClick={console.log(id)}></Button> */}
                     </div>
+                  ))}
+                </th>
+                <td>
+                  {trackings.map((tracking) => (
+                    <div key={tracking.id}>{tracking.calendare}</div>
+                  ))}
+                </td>
+                <td>
+                  {trackings.map((tracking) => (
+                    <div key={tracking.id}>{tracking.discriptionTrack}</div>
+                  ))}
+                </td>
+                <td>
+                  {trackings.map((tracking) => (
+                    <div key={tracking.id}>{tracking.nextDayDiscription}</div>
                   ))}
                 </td>
                 <td>
                   {trackings.map((tracking) => (
                     <div key={tracking.id}>
-                      {tracking.nextDayDiscription + `  `}
+                      {tracking.projectName}
+                      {/* <Button
+                        variant="dark"
+                        size="sm"
+                        onClick={console.log(tracking.id)}
+                      >
+                        delete
+                      </Button> */}
                     </div>
-                  ))}
-                </td>
-                <td>
-                  {trackings.map((tracking) => (
-                    <div key={tracking.id}>{tracking.projectName + `  `}</div>
                   ))}
                 </td>
               </tr>
             </tbody>
           </Table>
-          <Button onClick={() => getTasks()} variant="outline-dark">
-            обновить
-          </Button>
           <br />
           <br />
           <Accordion>
@@ -179,23 +186,12 @@ const TrackingPage = () => {
                 <Button onClick={(e) => deleteTracking(e.target.value)}>
                   asdf
                 </Button>
-
-                {/* {trackings.map((tracking) => (
-                  <div key={tracking.id}>
-                    {tracking.id + `  `}
-                    {tracking.calendare + `  `}
-                    {tracking.discriptionTrack + `  `}
-                    {tracking.nextDayDiscription + `  `}
-                    {tracking.projectName + `  `}
-                  </div>
-                ))} */}
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>
-          <Modal style={{}} show={show} onHide={handleClose}>
+          <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title>
-                {" "}
                 <h3>
                   {nameProject !== undefined
                     ? `${nameProject} `

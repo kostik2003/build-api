@@ -29,41 +29,37 @@ export default function ProjectPage() {
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Username</th>
+                  <th>Дата</th>
+                  <th>Описание задачи</th>
+                  <th>Что будет делать следующим</th>
+                  <th>Автор</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
+                  <td>
+                    {trackings.map((tracking) => (
+                      <div key={tracking.id}>{tracking.calendare}</div>
+                    ))}
+                  </td>
+                  <td>
+                    {trackings.map((tracking) => (
+                      <div key={tracking.id}>{tracking.discriptionTrack}</div>
+                    ))}
+                  </td>
+                  <td>
+                    {trackings.map((tracking) => (
+                      <div key={tracking.id}>{tracking.nextDayDiscription}</div>
+                    ))}
+                  </td>
+                  <td>
+                    {trackings.map((tracking) => (
+                      <div key={tracking.id}>{tracking.authorEmail}</div>
+                    ))}
+                  </td>
                 </tr>
               </tbody>
             </Table>
-            {trackings.map((tracking) => (
-              <div key={tracking.id}>
-                {tracking.id + `  `}
-                {tracking.calendare + `  `}
-                {tracking.discriptionTrack + `  `}
-                {tracking.nextDayDiscription + `  `}
-                {tracking.authorEmail + `  `}
-              </div>
-            ))}
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item
@@ -75,41 +71,37 @@ export default function ProjectPage() {
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Username</th>
+                  <th>Дата</th>
+                  <th>Описание задачи</th>
+                  <th>Что будет делать следующим</th>
+                  <th>Автор</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td colSpan={2}>Larry the Bird</td>
-                  <td>@twitter</td>
+                  <td>
+                    {trackings.map((tracking) => (
+                      <div key={tracking.id}>{tracking.calendare}</div>
+                    ))}
+                  </td>
+                  <td>
+                    {trackings.map((tracking) => (
+                      <div key={tracking.id}>{tracking.discriptionTrack}</div>
+                    ))}
+                  </td>
+                  <td>
+                    {trackings.map((tracking) => (
+                      <div key={tracking.id}>{tracking.nextDayDiscription}</div>
+                    ))}
+                  </td>
+                  <td>
+                    {trackings.map((tracking) => (
+                      <div key={tracking.id}>{tracking.authorEmail}</div>
+                    ))}
+                  </td>
                 </tr>
               </tbody>
             </Table>
-            {trackings.map((tracking) => (
-              <div key={tracking.id}>
-                {tracking.id + `  `}
-                {tracking.calendare + `  `}
-                {tracking.discriptionTrack + `  `}
-                {tracking.nextDayDiscription + `  `}
-                {tracking.authorEmail + `  `}
-              </div>
-            ))}
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

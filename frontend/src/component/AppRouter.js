@@ -11,7 +11,10 @@ import { AUTH_ROUTE, START_ROUTER, TRACKING_ROUTER } from "../utils/consts";
 const AppRouter = () => {
   const { store } = useContext(Context);
 
-  // console.log(store.isAuth);
+  console.log(store.isAuth); // первый false т.к запрос ещё не прошел
+  // второй true, когда запрос вернул токен
+
+  //асинхронный запрос с токеном приходит позже, чем отрабатывает редирект.
 
   return (
     <Routes>
@@ -22,6 +25,7 @@ const AppRouter = () => {
         privateRoutes.map(({ path, Component }) => (
           <Route key={path} path={path} element={<Component />} exact />
         ))}
+
       {store.isAuth ? (
         <Route path="/" element={<Navigate to={TRACKING_ROUTER} replace />} />
       ) : (

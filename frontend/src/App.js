@@ -24,7 +24,11 @@ const App = () => {
     return <div>Загрузка</div>;
   }
 
-  console.log(store.isLoading);
+  console.log(store.isLoading); // false потому что по стадарту стоит false
+  // второй false прилетает когда закончился запрос.
+
+  // console.log(store.isAuth + "2");
+  // console.log(store.isLoading + "3");
 
   return (
     <BrowserRouter>

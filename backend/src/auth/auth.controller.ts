@@ -1,4 +1,4 @@
-import { Controller, Body, Post, Request, UseGuards, Get, Req, Res } from '@nestjs/common';
+import { Controller, Body, Post, Request, UseGuards, Get, Req, Res, HttpException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { TRegister } from './auth.service';
@@ -24,6 +24,9 @@ export class AuthController {
         let email = user.email;
         user.password = undefined;
         const token = await this.authService.getJwtToken(user);
+        if (!token) {
+            throw new HttpException('Invalid Email or Password', 401);
+        }
         return token;
     }
 

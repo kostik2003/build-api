@@ -18,7 +18,6 @@ export class AuthService {
         const hashedPassword = await bcrypt.hash(regInput.password, 10);
         try {
             const createUser = await this.userService.createUser({
-                //Dto
                 ...regInput,
                 password: hashedPassword,
             });
@@ -31,6 +30,9 @@ export class AuthService {
 
     async getAuthUser(email: string, plainTextPassword: string) {
         try {
+            if (!email || !plainTextPassword) {
+                throw new HttpException('Invalid Email or Password', HttpStatus.BAD_REQUEST);
+            }
             const user = await this.userService.getUniqueUser({ email });
             await this.verifyPassword(plainTextPassword, user.password);
             user.password = undefined;

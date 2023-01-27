@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Prisma, User, Tracking, Tasks, Project } from '@prisma/client';
 import { userInfo } from 'os';
 import { PrismaService } from 'prisma/prisma.service';
@@ -33,22 +33,26 @@ export class UserService {
     }
 
     async deleteTracking(userEmail, trackingId) {
-        const trackId = parseInt(trackingId.id);
-        const userFromBD = await this.prisma.tracking.findFirst({
-            where: {
-                id: trackId,
-            },
-        });
-        if (userFromBD.authorEmail !== userEmail) {
-            throw new Error('Email not valid');
-        }
-        const deleteTrack = await this.prisma.tracking.delete({
-            where: {
-                id: trackId,
-            },
-        });
+        try {
+            const trackId = parseInt(trackingId.id);
+            const userFromBD = await this.prisma.tracking.findFirst({
+                where: {
+                    id: trackId,
+                },
+            });
+            if (userFromBD.authorEmail !== userEmail) {
+                throw new Error('Email not valid');
+            }
+            const deleteTrack = await this.prisma.tracking.delete({
+                where: {
+                    id: trackId,
+                },
+            });
 
-        return deleteTrack;
+            return deleteTrack;
+        } catch {
+            throw new HttpException('Track id Not Found', HttpStatus.NOT_FOUND);
+        }
     }
 
     async delete(userWhereUniqueInput: Prisma.UserWhereUniqueInput) {

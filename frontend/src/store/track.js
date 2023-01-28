@@ -22,7 +22,7 @@ export default class Track {
         formFields
       );
     } catch (e) {
-      console.error(e);
+      alert("Не выбран проект, или заполнены не все поля");
     }
   }
 
@@ -37,9 +37,11 @@ export default class Track {
   async deleteTracking(id) {
     try {
       const req = UserService.deleteTracking(id);
+      // console.log(req);
       return req;
     } catch (e) {
-      console.error(e);
+      console.log(e);
+      alert(e);
     }
   }
 }

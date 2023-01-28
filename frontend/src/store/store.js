@@ -25,12 +25,14 @@ export default class Store {
 
   async login(email, password) {
     try {
+      this.setLoading(true);
       await AuthService.login(email, password);
       this.setAuth(true);
       this.setUser(email);
     } catch (e) {
-      console.error(e);
+      alert("Вы ввели неверный пароль или email");
     } finally {
+      this.setLoading(false);
     }
   }
 
@@ -45,17 +47,21 @@ export default class Store {
   }
 
   async logout() {
+    this.setLoading(true);
     try {
       await AuthService.logout();
       this.setAuth(false);
       this.setUser();
     } catch (e) {
-      console.error(e);
+      console.log(e);
+    } finally {
+      this.setLoading(false);
     }
   }
 
   async checkAuth() {
     this.setLoading(true);
+    console.log("trueAuth");
     try {
       GetCookie("usrin");
       const res = await $api.get(`${API_URL}/authentication/token`, {
@@ -66,6 +72,7 @@ export default class Store {
     } catch (e) {
       console.error(e);
     } finally {
+      console.log("falseAuth");
       this.setLoading(false);
     }
   }

@@ -57,15 +57,16 @@ const TrackingPage = () => {
     setFormFields(data);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    track.submit(
+    const trackData = await track.submit(
       discriptionTrack,
       nameProject,
       nextDayDiscription,
       calendare.toLocaleDateString(),
       formFields
     );
+    setTracking([...trackings, trackData]);
   };
 
   useEffect(() => {
@@ -83,6 +84,7 @@ const TrackingPage = () => {
   };
 
   const deleteTracking = (e) => {
+    e.preventDefault();
     track.deleteTracking(id);
   };
 
@@ -99,57 +101,29 @@ const TrackingPage = () => {
         sort: "asc",
       },
       {
-        label: "First",
+        label: "Дата",
         field: "first",
         sort: "asc",
       },
       {
-        label: "Last",
+        label: "Описание Трэка",
         field: "last",
         sort: "asc",
       },
       {
-        label: "Handle",
+        label: "План на следующий день",
         field: "handle",
         sort: "asc",
       },
-    ],
-    rows: [
       {
-        id: 1,
-        first: "Mark",
-        last: "Otto",
-        handle: "@mdo",
+        label: "Имя проекта",
+        field: "nameProject",
+        sort: "asc",
       },
       {
-        id: 2,
-        first: "Jacob",
-        last: "Thornton",
-        handle: "@fat",
-      },
-      {
-        id: 3,
-        first: "Larry",
-        last: "the Bird",
-        handle: "@twitter",
-      },
-      {
-        id: 4,
-        first: "Mark",
-        last: "Otto",
-        handle: "@mdo",
-      },
-      {
-        id: 5,
-        first: "Jacob",
-        last: "Thornton",
-        handle: "@fat",
-      },
-      {
-        id: 6,
-        first: "Larry",
-        last: "the Bird",
-        handle: "@twitter",
+        label: "Автор",
+        field: "dsd",
+        sort: "asc",
       },
     ],
   };
@@ -234,9 +208,9 @@ const TrackingPage = () => {
           {/* </Form> */}
           <br />
           <br />
-          <MDBTable scrollY variant="dark">
+          <MDBTable scrollY>
             <MDBTableHead columns={data.columns} />
-            <MDBTableBody rows={data.rows} />
+            <MDBTableBody rows={trackings}></MDBTableBody>
           </MDBTable>
           <br />
           <br />

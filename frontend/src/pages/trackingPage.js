@@ -66,7 +66,8 @@ const TrackingPage = () => {
       calendare.toLocaleDateString(),
       formFields
     );
-    setTracking([...trackings, trackData]);
+    console.log(trackData.data);
+    setTracking([...trackings, trackData.data]);
   };
 
   useEffect(() => {
@@ -84,7 +85,6 @@ const TrackingPage = () => {
   };
 
   const deleteTracking = (e) => {
-    e.preventDefault();
     track.deleteTracking(id);
   };
 

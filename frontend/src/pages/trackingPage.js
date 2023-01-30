@@ -31,7 +31,6 @@ const TrackingPage = () => {
   ]);
 
   const { project } = useContext(Context); //прокинуть функцию для получения всех элементов
-
   const { track } = useContext(Context);
 
   const handleFormChange = (event, index) => {
@@ -57,6 +56,7 @@ const TrackingPage = () => {
     setFormFields(data);
   };
 
+  //тут не прокидывается tasks скорее всего потому что с бэка не приходит task
   const handleSubmit = async (e) => {
     e.preventDefault();
     const trackData = await track.submit(
@@ -66,9 +66,10 @@ const TrackingPage = () => {
       calendare.toLocaleDateString(),
       formFields
     );
-    console.log(trackData.data);
     setTracking([...trackings, trackData.data]);
   };
+
+  console.log(formFields);
 
   useEffect(() => {
     console.log("sd");
@@ -77,57 +78,31 @@ const TrackingPage = () => {
 
   const getTasks = async () => {
     const response = await track.getAllTracking();
-    setTracking(response.data);
+    const trackings = response.data;
+    const resoult = trackings.map((tracking) => {
+      return tracking.tasks.map((task) => {
+        return task;
+      });
+    });
+    setTracking(response.data, resoult);
     try {
     } catch (e) {
       console.log(e);
     }
   };
 
-  const deleteTracking = (e) => {
+  const deleteTracking = () => {
     track.deleteTracking(id);
+    trackings.forEach(function (el, i) {
+      if (el.id == id) trackings.splice(i, 1);
+    });
+    setTracking([...trackings]);
   };
 
   const logout = () => {
     AuthService.logout();
     window.location.reload();
   };
-
-  const data = {
-    columns: [
-      {
-        label: "#",
-        field: "id",
-        sort: "asc",
-      },
-      {
-        label: "Дата",
-        field: "first",
-        sort: "asc",
-      },
-      {
-        label: "Описание Трэка",
-        field: "last",
-        sort: "asc",
-      },
-      {
-        label: "План на следующий день",
-        field: "handle",
-        sort: "asc",
-      },
-      {
-        label: "Имя проекта",
-        field: "nameProject",
-        sort: "asc",
-      },
-      {
-        label: "Автор",
-        field: "dsd",
-        sort: "asc",
-      },
-    ],
-  };
-
   return (
     <>
       <br></br>
@@ -140,31 +115,26 @@ const TrackingPage = () => {
           }}
         >
           <Button variant="dark" onClick={handleShow}>
-            демо модэл
+            Создать отчет
           </Button>
 
           <br></br>
           <br></br>
-          {/* <Form> */}
-          <Table
-            striped
-            bordered="true"
-            hover
-            variant="dark"
-            responsive="md"
-            size="sm"
-          >
-            <thead>
-              <tr>
+          <MDBTable scrollY>
+            <MDBTableHead>
+              <tr className="table-dark">
                 <th>#</th>
                 <th>Дата</th>
                 <th>Описание Трэка</th>
                 <th>План на следующий день</th>
                 <th>Имя проекта</th>
+                <th>Таска</th>
+                <th>Время</th>
+                <th>Выполнено?</th>
               </tr>
-            </thead>
-            <tbody>
-              <tr>
+            </MDBTableHead>
+            <MDBTableBody>
+              <tr className="table-dark">
                 <th>
                   {trackings.map((tracking) => (
                     <div key={tracking.id}>
@@ -202,19 +172,30 @@ const TrackingPage = () => {
                     </div>
                   ))}
                 </td>
+                <td>
+                  {trackings.map((tracking) => {
+                    return tracking.tasks.map((task) => {
+                      return <div key={task.id}>{task.discriptionTask}</div>;
+                    });
+                  })}
+                </td>
+                <td>
+                  {trackings.map((tracking) => {
+                    return tracking.tasks.map((task) => {
+                      return <div key={task.id}>{task.time}</div>;
+                    });
+                  })}
+                </td>
+                <td>
+                  {trackings.map((tracking) => {
+                    return tracking.tasks.map((task) => {
+                      return <div key={task.id}>{task.isComplite}</div>;
+                    });
+                  })}
+                </td>
               </tr>
-            </tbody>
-          </Table>
-          {/* </Form> */}
-          <br />
-          <br />
-          <MDBTable scrollY>
-            <MDBTableHead columns={data.columns} />
-            <MDBTableBody rows={trackings}></MDBTableBody>
+            </MDBTableBody>
           </MDBTable>
-          <br />
-          <br />
-
           <Accordion>
             <Accordion.Item eventKey="0">
               <Accordion.Header>Удалить пост</Accordion.Header>
@@ -351,20 +332,9 @@ const TrackingPage = () => {
                         Выполнено?
                       </InputGroup.Text>
                     </InputGroup>
-                    <Button variant="dark" onClick={() => removeFields(index)}>
-                      Remove
-                    </Button>
                   </div>
                 );
               })}
-              <br />
-              <br />
-
-              <Button variant="dark" onClick={addFields}>
-                Add More..
-              </Button>
-              <br />
-              <br />
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
@@ -377,14 +347,11 @@ const TrackingPage = () => {
           </Modal>
           <br />
 
-          <br />
-
           <Calendar
             onChange={setCalendare}
             value={calendare}
             variant="outline-dark"
           />
-          <br></br>
           <br />
 
           <Button variant="dark" type="submit">
@@ -394,18 +361,11 @@ const TrackingPage = () => {
       </div>
       <Form className="calendare" style={{ marginLeft: "400" }}></Form>
 
-      <br />
-      <br />
       <Form>
         <Link to="/etacar">
           <Button onClick={logout} variant="outline-dark">
             Выйти
           </Button>
-        </Link>
-        <br></br>
-        <br></br>
-        <Link to="/admin">
-          <Button variant="outline-dark">admin</Button>
         </Link>
       </Form>
     </>

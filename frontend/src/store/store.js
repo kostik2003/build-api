@@ -39,9 +39,9 @@ export default class Store {
   async registration(email, password, name) {
     try {
       const res = await AuthService.registration(email, password, name);
-      this.setAuth(true);
-      this.setUser(res.data.user);
+      alert("вы успешно зарегестрированы");
     } catch (e) {
+      alert("Пользователь с таким email уже существует");
       console.error(e);
     }
   }

@@ -85,14 +85,18 @@ export class UserService {
 
     async getAllPosts(userEmail): Promise<Tracking[]> {
         const dateNow = new Date().toLocaleDateString();
-        const resoult = this.prisma.tracking.findMany({
+        const resoult = await this.prisma.tracking.findMany({
             where: {
                 authorEmail: userEmail,
+            },
+            include: {
+                tasks: true,
             },
         });
         return resoult;
     }
 
+    //возвращает данные без tasks
     async createReport(data: Tracking, userEmail: string, tasksData, projectName: string): Promise<Tracking> {
         const post = await this.prisma.tracking.create({
             data: {
@@ -113,8 +117,10 @@ export class UserService {
                     create: [...tasksData],
                 },
             },
+            include: {
+                tasks: true,
+            },
         });
-
         return post;
     }
 }

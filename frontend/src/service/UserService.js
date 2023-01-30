@@ -26,7 +26,7 @@ export default class UserService {
   }
 
   static async deleteTracking(id) {
-    const as = $api.post("/tracking/delete", { id });
-    return as;
+    const req = $api.post("/tracking/delete", { id });
+    return req;
   }
 }

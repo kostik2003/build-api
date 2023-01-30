@@ -21,6 +21,7 @@ export default class Track {
         calendare,
         formFields
       );
+      return res;
     } catch (e) {
       alert("Не выбран проект, или заполнены не все поля");
     }
@@ -28,7 +29,7 @@ export default class Track {
 
   async getAllTracking() {
     try {
-      const res = UserService.getAllTracking();
+      const res = await UserService.getAllTracking();
       return res;
     } catch (e) {
       console.error(e);
@@ -36,8 +37,8 @@ export default class Track {
   }
   async deleteTracking(id) {
     try {
-      const req = UserService.deleteTracking(id);
-      // console.log(req);
+      const req = await UserService.deleteTracking(id);
+      alert("Успешно удалено");
       return req;
     } catch (e) {
       console.log(e);

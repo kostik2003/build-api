@@ -30,7 +30,7 @@ export default observer(function RegisterPage() {
         placeholder="Name"
       />
       <button onClick={() => store.registration(email, password, name)}>
-        Логин
+        Зарегистрироваться
       </button>
     </div>
   );

@@ -129,69 +129,85 @@ const TrackingPage = () => {
                 <th>План на следующий день</th>
                 <th>Имя проекта</th>
                 <th>Таска</th>
-                <th>Время</th>
+                <th>Время(часов)</th>
                 <th>Выполнено?</th>
               </tr>
             </MDBTableHead>
             <MDBTableBody>
               <tr className="table-dark">
                 <th>
-                  {trackings.map((tracking) => (
-                    <div key={tracking.id}>
-                      {tracking.id}
-                      {/* <Button variant="dark" onClick={console.log(id)}></Button> */}
-                    </div>
-                  ))}
+                  {trackings
+                    .map((tracking) => (
+                      <div key={tracking.id}>
+                        {tracking.id}
+                        {/* <Button variant="dark" onClick={console.log(id)}></Button> */}
+                      </div>
+                    ))
+                    .sort((a, b) => (a.id > b.id ? -1 : 1))}
                 </th>
                 <td>
-                  {trackings.map((tracking) => (
-                    <div key={tracking.id}>{tracking.calendare}</div>
-                  ))}
+                  {trackings
+                    .map((tracking) => (
+                      <div key={tracking.id}>{tracking.calendare}</div>
+                    ))
+                    .sort((a, b) => (a.id > b.id ? -1 : 1))}
                 </td>
                 <td>
-                  {trackings.map((tracking) => (
-                    <div key={tracking.id}>{tracking.discriptionTrack}</div>
-                  ))}
+                  {trackings
+                    .map((tracking) => (
+                      <div key={tracking.id}>{tracking.discriptionTrack}</div>
+                    ))
+                    .sort((a, b) => (a.id > b.id ? -1 : 1))}
                 </td>
                 <td>
-                  {trackings.map((tracking) => (
-                    <div key={tracking.id}>{tracking.nextDayDiscription}</div>
-                  ))}
+                  {trackings
+                    .map((tracking) => (
+                      <div key={tracking.id}>{tracking.nextDayDiscription}</div>
+                    ))
+                    .sort((a, b) => (a.id > b.id ? -1 : 1))}
                 </td>
                 <td>
-                  {trackings.map((tracking) => (
-                    <div key={tracking.id}>
-                      {tracking.projectName}
-                      {/* <Button
+                  {trackings
+                    .map((tracking) => (
+                      <div key={tracking.id}>
+                        {tracking.projectName}
+                        {/* <Button
                         variant="dark"
                         size="sm"
                         onClick={console.log(tracking.id)}
                       >
                         delete
                       </Button> */}
-                    </div>
-                  ))}
+                      </div>
+                    ))
+                    .sort((a, b) => (a.id > b.id ? -1 : 1))}
                 </td>
                 <td>
-                  {trackings.map((tracking) => {
-                    return tracking.tasks.map((task) => {
-                      return <div key={task.id}>{task.discriptionTask}</div>;
-                    });
-                  })}
+                  {trackings
+                    .map((tracking) => {
+                      return tracking.tasks.map((task) => {
+                        return <div key={task.id}>{task.discriptionTask}</div>;
+                      });
+                    })
+                    .sort((a, b) => (a.id > b.id ? -1 : 1))}
                 </td>
                 <td>
-                  {trackings.map((tracking) => {
-                    return tracking.tasks.map((task) => {
-                      return <div key={task.id}>{task.time}</div>;
-                    });
-                  })}
+                  {trackings
+                    .map((tracking) => {
+                      return tracking.tasks.map((task) => {
+                        return <div key={task.id}>{task.time}</div>;
+                      });
+                    })
+                    .sort((a, b) => (a.id > b.id ? -1 : 1))}
                 </td>
                 <td>
-                  {trackings.map((tracking) => {
-                    return tracking.tasks.map((task) => {
-                      return <div key={task.id}>{task.isComplite}</div>;
-                    });
-                  })}
+                  {trackings
+                    .map((tracking) => {
+                      return tracking.tasks.map((task) => {
+                        return <div key={task.id}>{task.isComplite}</div>;
+                      });
+                    })
+                    .sort((a, b) => (a.id > b.id ? -1 : 1))}
                 </td>
               </tr>
             </MDBTableBody>

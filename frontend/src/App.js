@@ -24,7 +24,7 @@ const App = () => {
     return <div>Загрузка</div>;
   }
 
-  console.log(store.isLoading); // false потому что по стадарту стоит false
+  // console.log(store.isLoading); // false потому что по стадарту стоит false
   // второй false прилетает когда закончился запрос.
 
   // console.log(store.isAuth + "2");
@@ -45,6 +45,11 @@ const App = () => {
               Registration
             </Nav.Link>
             {store.isAuth ? <Nav.Link href="/project">Projects</Nav.Link> : ""}
+            {store.isAuth ? (
+              <Nav.Link href="/project/users">Users</Nav.Link>
+            ) : (
+              ""
+            )}
           </Nav>
         </Container>
       </Navbar>

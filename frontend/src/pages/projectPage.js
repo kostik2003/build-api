@@ -55,7 +55,9 @@ export default function ProjectPage() {
                   </td>
                   <td>
                     {trackings.map((tracking) => (
-                      <div key={tracking.id}>{tracking.authorEmail}</div>
+                      <Link to={tracking.authorEmail} key={tracking.id}>
+                        {tracking.authorEmail}
+                      </Link>
                     ))}
                   </td>
                 </tr>
@@ -67,7 +69,7 @@ export default function ProjectPage() {
           onClick={(e) => getTasks((e = "PetPassword"))}
           eventKey="1"
         >
-          <Accordion.Header>PetPassword</Accordion.Header>
+          <Accordion.Header>PetPasport</Accordion.Header>
           <Accordion.Body>
             <Table striped bordered hover variant="dark">
               <thead>

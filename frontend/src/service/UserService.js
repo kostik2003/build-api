@@ -1,10 +1,6 @@
 import $api from "../http";
 
 export default class UserService {
-  static fetchUsers() {
-    return $api.get("/user");
-  }
-
   static async createReport(
     discriptionTrack,
     nameProject,
@@ -28,5 +24,14 @@ export default class UserService {
   static async deleteTracking(id) {
     const req = $api.post("/tracking/delete", { id });
     return req;
+  }
+
+  static async getAllUsersWithTracking() {
+    const asdf = $api.get("/project/users");
+    return asdf;
+  }
+
+  static async getUniueUserWithTracking() {
+    return $api.get("/project/users/:email");
   }
 }

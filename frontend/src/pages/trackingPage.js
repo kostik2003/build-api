@@ -7,10 +7,8 @@ import AuthService from "../service/AuthService";
 import Calendar from "react-calendar";
 import Modal from "react-bootstrap/Modal";
 import "react-calendar/dist/Calendar.css";
-// import Calendar from "@ericz1803/react-google-calendar";
 import Dropdown from "react-bootstrap/Dropdown";
 import { observer } from "mobx-react-lite";
-import Table from "react-bootstrap/Table";
 import { Context } from "..";
 import Accordion from "react-bootstrap/Accordion";
 import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
@@ -30,7 +28,6 @@ const TrackingPage = () => {
     { name: "", discriptionTask: "", time: "", isComplite: "" },
   ]);
 
-  const { project } = useContext(Context); //прокинуть функцию для получения всех элементов
   const { track } = useContext(Context);
 
   const handleFormChange = (event, index) => {

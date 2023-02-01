@@ -61,7 +61,7 @@ export default class Store {
 
   async checkAuth() {
     this.setLoading(true);
-    console.log("trueAuth");
+    // console.log("trueAuth");
     try {
       GetCookie("usrin");
       const res = await $api.get(`${API_URL}/authentication/token`, {
@@ -72,7 +72,7 @@ export default class Store {
     } catch (e) {
       console.error(e);
     } finally {
-      console.log("falseAuth");
+      // console.log("falseAuth");
       this.setLoading(false);
     }
   }

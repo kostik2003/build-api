@@ -9,9 +9,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './roles/roles.guard';
 import { AdminModule } from './admin/admin.module';
 import { ProjectModule } from './project/project.module';
-import { TaskService } from './task/task.service';
-import { TaskController } from './task/task.controller';
-import { TaskModule } from './task/task.module';
 
 const DB_NAME_MONGO = process.env.DB_NAME_MONGO;
 const DB_HOST = process.env.DB_HOST || 3002;
@@ -23,9 +20,8 @@ const DB_PORT_MONGO = process.env.DB_PORT_MONGO;
         AuthModule,
         AdminModule,
         ProjectModule,
-        TaskModule,
     ],
-    controllers: [AppController, TaskController],
-    providers: [AuthService, { provide: APP_GUARD, useClass: RolesGuard }, TaskService],
+    controllers: [AppController],
+    providers: [AuthService, { provide: APP_GUARD, useClass: RolesGuard }],
 })
 export class AppModule {}

@@ -6,7 +6,7 @@ export default class User {
   constructor() {
     makeAutoObservable(this);
   }
-
+  //получение всех пользователей
   async getUsers() {
     try {
       const res = await UserService.getAllUsersWithTracking(

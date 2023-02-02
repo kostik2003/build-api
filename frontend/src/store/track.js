@@ -6,6 +6,7 @@ export default class Track {
     makeAutoObservable(this);
   }
 
+  //отправка отчета
   async submit(
     discriptionTrack,
     nameProject,
@@ -26,7 +27,7 @@ export default class Track {
       alert("Не выбран проект, или заполнены не все поля");
     }
   }
-
+  //получение всех отчетов в таблицу для авторизованного юзера
   async getAllTracking() {
     try {
       const res = await UserService.getAllTracking();
@@ -35,6 +36,7 @@ export default class Track {
       console.error(e);
     }
   }
+  //удаление поста авторизованного пользователя по id
   async deleteTracking(id) {
     try {
       const req = await UserService.deleteTracking(id);

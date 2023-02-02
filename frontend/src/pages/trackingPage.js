@@ -24,18 +24,22 @@ const TrackingPage = () => {
   const [nameProject, setNameProject] = useState();
   const [calendare, setCalendare] = useState(dateTrack);
   const [trackings, setTracking] = useState([]);
+  const [allProject, setAllProject] = useState([]);
   const [formFields, setFormFields] = useState([
     { name: "", discriptionTask: "", time: "", isComplite: "" },
   ]);
 
   const { track } = useContext(Context);
+  const { project } = useContext(Context);
 
+  //тоже переделать.
   const handleFormChange = (event, index) => {
     let data = [...formFields];
     data[index][event.target.name] = event.target.value;
     setFormFields(data);
   };
 
+  //переделать
   const addFields = () => {
     let object = {
       name: "",
@@ -47,13 +51,13 @@ const TrackingPage = () => {
     setFormFields([...formFields, object]);
   };
 
-  const removeFields = (index) => {
-    let data = [...formFields];
-    data.splice(index, 1);
-    setFormFields(data);
+  //для выбора проектов в модальном окне трэка.
+  const getProject = async () => {
+    const allProject = await project.getAllProject();
+    setAllProject(allProject.data);
   };
 
-  //тут не прокидывается tasks скорее всего потому что с бэка не приходит task
+  //отправка трэка юзера
   const handleSubmit = async (e) => {
     e.preventDefault();
     const trackData = await track.submit(
@@ -66,13 +70,12 @@ const TrackingPage = () => {
     setTracking([...trackings, trackData.data]);
   };
 
-  console.log(formFields);
-
   useEffect(() => {
-    console.log("sd");
     getTasks();
+    getProject();
   }, []);
 
+  //показ всей инфы в таблице
   const getTasks = async () => {
     const response = await track.getAllTracking();
     const trackings = response.data;
@@ -88,6 +91,7 @@ const TrackingPage = () => {
     }
   };
 
+  //удаление трэка авторизованного юзера по id
   const deleteTracking = () => {
     track.deleteTracking(id);
     trackings.forEach(function (el, i) {
@@ -98,8 +102,9 @@ const TrackingPage = () => {
 
   const logout = () => {
     AuthService.logout();
-    window.location.reload();
+    window.location.reload(); //для очистки куки.
   };
+
   return (
     <>
       <br></br>
@@ -250,22 +255,14 @@ const TrackingPage = () => {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu variant="outline-dark">
-                  <Dropdown.Item
-                    onClick={(e) => setNameProject((e = "BluSvn"))}
-                  >
-                    BluSvn
-                  </Dropdown.Item>
-
-                  <Dropdown.Item
-                    onClick={(e) => setNameProject((e = "PetPassword"))}
-                  >
-                    PetPassword
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={(e) => setNameProject((e = "HellowWorld"))}
-                  >
-                    HellowWorld
-                  </Dropdown.Item>
+                  {allProject.map((project) => (
+                    <Dropdown.Item
+                      key={project.id}
+                      onClick={(e) => setNameProject((e = project.name))}
+                    >
+                      {project.name}
+                    </Dropdown.Item>
+                  ))}
                 </Dropdown.Menu>
               </Dropdown>
 

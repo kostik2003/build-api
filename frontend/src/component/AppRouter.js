@@ -11,7 +11,7 @@ import { AUTH_ROUTE, START_ROUTER, TRACKING_ROUTER } from "../utils/consts";
 const AppRouter = () => {
   const { store } = useContext(Context);
 
-  console.log(store.isAuth); // первый false т.к запрос ещё не прошел
+  // console.log(store.isAuth); // первый false т.к запрос ещё не прошел
   // второй true, когда запрос вернул токен
 
   //асинхронный запрос с токеном приходит позже, чем отрабатывает редирект.

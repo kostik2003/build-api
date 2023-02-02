@@ -11,6 +11,7 @@ export class ProjectService {
             data,
         });
     }
+
     async getAllProject(): Promise<Project[]> {
         return this.prisma.project.findMany({
             include: {
@@ -19,6 +20,7 @@ export class ProjectService {
             },
         });
     }
+
     async getAllTrackingToday(nameProject): Promise<Tracking[]> {
         const dateNow = new Date().toLocaleDateString();
         const resoult = this.prisma.tracking.findMany({
@@ -28,5 +30,26 @@ export class ProjectService {
             },
         });
         return resoult;
+    }
+
+    async getUniqueUserByEmail(userEmail) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                email: userEmail.email,
+            },
+            include: {
+                posts: {
+                    include: {
+                        tasks: true,
+                    },
+                },
+            },
+        });
+        return user;
+    }
+
+    async getAllUser() {
+        const user = await this.prisma.user.findMany({});
+        return user;
     }
 }

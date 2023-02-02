@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
 import { Context } from "..";
 import Table from "react-bootstrap/Table";
+import { MDBTable, MDBTableBody, MDBTableHead } from "mdbreact";
 
 export default function ProjectPage() {
   const [trackings, setTracking] = useState([]);
@@ -26,17 +27,17 @@ export default function ProjectPage() {
         <Accordion.Item onClick={(e) => getTasks((e = "BluSvn"))} eventKey="0">
           <Accordion.Header>BluSvn</Accordion.Header>
           <Accordion.Body>
-            <Table striped bordered hover variant="dark">
-              <thead>
-                <tr>
+            <MDBTable scrollY>
+              <MDBTableHead>
+                <tr className="table-dark">
                   <th>Дата</th>
-                  <th>Описание задачи</th>
-                  <th>Что будет делать следующим</th>
+                  <th>Описание Трэка</th>
+                  <th>План на следующий день</th>
                   <th>Автор</th>
                 </tr>
-              </thead>
-              <tbody>
-                <tr>
+              </MDBTableHead>
+              <MDBTableBody>
+                <tr className="table-dark">
                   <td>
                     {trackings.map((tracking) => (
                       <div key={tracking.id}>{tracking.calendare}</div>
@@ -54,26 +55,28 @@ export default function ProjectPage() {
                   </td>
                   <td>
                     {trackings.map((tracking) => (
-                      <div key={tracking.id}>{tracking.authorEmail}</div>
+                      <Link to={tracking.authorEmail} key={tracking.id}>
+                        {tracking.authorEmail}
+                      </Link>
                     ))}
                   </td>
                 </tr>
-              </tbody>
-            </Table>
+              </MDBTableBody>
+            </MDBTable>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item
           onClick={(e) => getTasks((e = "PetPassword"))}
           eventKey="1"
         >
-          <Accordion.Header>PetPassword</Accordion.Header>
+          <Accordion.Header>PetPasport</Accordion.Header>
           <Accordion.Body>
             <Table striped bordered hover variant="dark">
               <thead>
                 <tr>
                   <th>Дата</th>
                   <th>Описание задачи</th>
-                  <th>Что будет делать следующим</th>
+                  <th>План на следующий день</th>
                   <th>Автор</th>
                 </tr>
               </thead>

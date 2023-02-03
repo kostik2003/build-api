@@ -17,4 +17,24 @@ export default class User {
       console.error(e);
     }
   }
+
+  //получение инфы о конкретном юзере
+  async reqUniqueUser(userEmail) {
+    try {
+      const user = await UserService.getUniueUserWithTracking(userEmail);
+      return user;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async resInfoWithUniqueUser() {
+    try {
+      const user = await UserService.getAllInfoUser();
+      console.log(user);
+      return user;
+    } catch (e) {
+      console.error(e);
+    }
+  }
 }

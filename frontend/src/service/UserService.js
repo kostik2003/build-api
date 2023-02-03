@@ -17,10 +17,12 @@ export default class UserService {
       formFields,
     });
   }
+
   //получение всех постов для авторизованного юзера
   static async getAllTracking() {
     return $api.get("/tracking/posts");
   }
+
   //удаление трэка по id (только для авторизованного юзера)
   static async deleteTracking(id) {
     const req = $api.post("/tracking/delete", { id });
@@ -32,8 +34,14 @@ export default class UserService {
     const asdf = $api.get("/project/users");
     return asdf;
   }
+
   //просмотр информации о конкретном пользователе
-  static async getUniueUserWithTracking() {
-    return $api.get("/project/users/:email");
+  static async getUniueUserWithTracking(userEmail) {
+    return $api.post("/project/user/:email", { userEmail });
+  }
+
+  //косяк -- летит запрос на :email а не на мыло юзера
+  static async getAllInfoUser() {
+    return $api.get("/project/user/:");
   }
 }

@@ -55,9 +55,9 @@ export default function ProjectPage() {
                   </td>
                   <td>
                     {trackings.map((tracking) => (
-                      <Link to={tracking.authorEmail} key={tracking.id}>
+                      <div to={tracking.authorEmail} key={tracking.id}>
                         {tracking.authorEmail}
-                      </Link>
+                      </div>
                     ))}
                   </td>
                 </tr>

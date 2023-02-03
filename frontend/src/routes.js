@@ -11,10 +11,12 @@ import {
   AUTH_ROUTE,
   START_ROUTER,
   PROJECT_ROUTER,
-  UNIQUE_USER,
+  USERS_ROUTER,
+  USER_ROUTER,
 } from "./utils/consts";
 import RegisterPage from "./pages/registerPage";
 import StartPage from "./pages/startPage";
+import UserPage from "./pages/userPage";
 
 export const publicRoutes = [
   {
@@ -53,7 +55,11 @@ export const privateRoutes = [
     Component: ProjectPage,
   },
   {
-    path: UNIQUE_USER,
+    path: USERS_ROUTER,
     Component: UsersPage,
+  },
+  {
+    path: USER_ROUTER,
+    Component: UserPage,
   },
 ];

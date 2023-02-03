@@ -35,17 +35,25 @@ export class ProjectService {
     async getUniqueUserByEmail(userEmail) {
         const user = await this.prisma.user.findUnique({
             where: {
-                email: userEmail.email,
+                email: userEmail.userEmail,
             },
-            include: {
-                posts: {
-                    include: {
-                        tasks: true,
-                    },
-                },
-            },
+            // select: {
+            //     id: true,
+            //     email: true,
+            //     name: true,
+            //     posts: {
+            //         include: {
+            //             tasks: true,
+            //         },
+            //     },
+            // },
         });
         return user;
+    }
+
+    async getAllInfoUser(userEmail) {
+        const info = await this.prisma.user.findMany({});
+        return info;
     }
 
     async getAllUser() {

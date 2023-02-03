@@ -23,13 +23,20 @@ export class ProjectController {
     }
 
     @Post('user/:email')
-    async getUniqueUserByEmail(@Param() userEmail) {
+    async getUniqueUserByEmail(@Body() userEmail) {
         const user = await this.projectService.getUniqueUserByEmail(userEmail);
         return user;
     }
+
     @Get('users')
     async getAllUserByEmail() {
         const user = await this.projectService.getAllUser();
         return user;
+    }
+
+    @Get('user/:email')
+    async getInfoUser(@Param('email') userEmail) {
+        console.log(userEmail);
+        const info = await this.projectService.getAllInfoUser(userEmail);
     }
 }
